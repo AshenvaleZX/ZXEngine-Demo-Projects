@@ -1,0 +1,38 @@
+{
+    "Name": "MapRoot",
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, 0, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Type": "GameLogic",
+            "Lua": "Scripts/GameInit.lua"
+        }
+    ],
+    "GameObjects":
+    [
+        {
+            "Name": "MapBase",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [15, 1, 15]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/TerrainBase.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        }
+    ]
+}

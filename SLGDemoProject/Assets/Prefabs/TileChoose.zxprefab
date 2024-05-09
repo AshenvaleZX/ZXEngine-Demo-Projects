@@ -1,0 +1,19 @@
+{
+    "Name": "TileChoose",
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, 0, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 1, 1.14]
+        },
+        {
+            "Type": "MeshRenderer",
+            "Geometry": 4,
+            "Material": "Materials/TileChoose.zxmat",
+            "CastShadow": false,
+            "ReceiveShadow": false
+        }
+    ]
+}

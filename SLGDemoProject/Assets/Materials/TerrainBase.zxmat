@@ -1,0 +1,11 @@
+{
+    "Type": "Forward",
+    "Shader": "Shaders/SimpleTexture.zxshader",
+    "Textures":
+    [
+        {
+            "UniformName": "_Texture1",
+            "Path": "Textures/Sand.jpg"
+        }
+    ]
+}

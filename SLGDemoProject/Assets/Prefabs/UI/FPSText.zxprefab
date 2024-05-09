@@ -1,0 +1,23 @@
+{
+    "Name": "FPSText",
+    "Layer": 1,
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [-620, 320, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Type": "UITextRenderer",
+            "Text": "ZX Test FPS",
+            "Color": [1, 1, 1, 1],
+            "Size": 0.5
+        },
+        {
+            "Type": "GameLogic",
+            "Lua": "Scripts/ShowFPS.lua"
+        }
+    ]
+}
