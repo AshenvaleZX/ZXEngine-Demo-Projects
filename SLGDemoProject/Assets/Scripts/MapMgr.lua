@@ -48,9 +48,22 @@ function MapMgr:Init()
     self.TileChoose:GetComponent("Transform"):SetPosition(0, -0.1, 0)
 end
 
-function MapMgr:AddTroop(startPos, endPos)
-    local troopLine = GameObject.Create("Prefabs/Troop.zxprefab")
-    troopLine:GetComponent("GameLogic"):GetScript():Init(startPos, endPos)
+function MapMgr:AddTroop(startPos, endPos, type)
+    local troopLine = nil
+    
+    if type == GlobalConst.MARCH_TYPE_SOLO then
+        troopLine = GameObject.Create("Prefabs/Troop.zxprefab")
+    elseif type == GlobalConst.MARCH_TYPE_RALLY then
+        troopLine = GameObject.Create("Prefabs/TroopRally.zxprefab")
+    elseif type == GlobalConst.MARCH_TYPE_GATHER then
+        troopLine = GameObject.Create("Prefabs/TroopGather.zxprefab")
+    elseif type == GlobalConst.MARCH_TYPE_SCOUT then
+        troopLine = GameObject.Create("Prefabs/TroopScout.zxprefab")
+    end
+
+    if troopLine then
+        troopLine:GetComponent("GameLogic"):GetScript():Init(startPos, endPos)
+    end
 end
 
 function MapMgr:SelectTile(tile)
@@ -67,8 +80,9 @@ function MapMgr:SelectTile(tile)
     tilePos.y = 2
     self.TileChoose:GetComponent("Transform"):SetPosition(tilePos)
 
+    local tType = math.random(1, 4)
     local startPos = { x = 0, y = 0, z = 0 }
-    self:AddTroop(startPos, tilePos)
+    self:AddTroop(startPos, tilePos, tType)
 end
 
 function MapMgr:UnSelectTile()

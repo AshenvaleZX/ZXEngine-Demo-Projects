@@ -1,0 +1,57 @@
+{
+    "Name": "TroopRally",
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, 0, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Type": "GameLogic",
+            "Lua": "Scripts/Troop.lua"
+        }
+    ],
+    "GameObjects":
+    [
+        {
+            "Name": "TroopLine",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [1, 1, 1]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/TroopLine.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "TroopModel",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [1, 1, 1]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Mesh": "Kenny/WatercraftPack/ship-ocean-liner-small.obj",
+                    "Material": "Materials/Kenney/WatercraftPack.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        }
+    ]
+}
