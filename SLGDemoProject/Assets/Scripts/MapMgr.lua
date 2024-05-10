@@ -95,6 +95,8 @@ function MapMgr:UnSelectTile()
     self.SelectedTile = nil
     self.SelectedTilePos = { x = 0, y = 0, z = 0 }
     self.TileChoose:GetComponent("Transform"):SetPosition(0, -0.1, 0)
+
+    GetMapUIMgr():UnSelectTile()
 end
 
 function MapMgr:UpdateSelectedTile()

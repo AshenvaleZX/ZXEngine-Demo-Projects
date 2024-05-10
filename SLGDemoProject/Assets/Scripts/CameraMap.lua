@@ -5,12 +5,16 @@ CameraMap.ClickY = 0
 CameraMap.ScrollSpeed = 500
 CameraMap.MovementSpeed = 25
 
+function GetMapCamera()
+    return CameraMap
+end
+
 function CameraMap:Start()
     self.trans = self.gameObject:GetComponent("Transform")
     self.camera = self.gameObject:GetComponent("Camera")
     EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_DOWN, self.OnMouseLeftPress, self)
     EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_UP, self.OnMouseLeftRelease, self)
-    EngineEvent:AddEventHandler(EngineEventType.UPDATE_MOUSE_POS, self.OnMouseMove, self)
+    EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_PRESS, self.OnMouseMove, self)
     EngineEvent:AddEventHandler(EngineEventType.UPDATE_MOUSE_SCROLL, self.OnMouseScroll, self)
 end
 
@@ -19,7 +23,6 @@ function CameraMap:OnMouseLeftPress(args)
     self.ClickX = tonumber(argList[1])
     self.ClickY = tonumber(argList[2])
 
-    self.isMoving = true
     self.firstMouse = true
 end
 
@@ -36,6 +39,7 @@ function CameraMap:OnMouseLeftRelease(args)
             local intersection = v:GetComponent("Collider"):IntersectRay(ray)
             if intersection then
                 GetMapMgr():SelectTile(v)
+                GetMapUIMgr():SelectTile(v)
                 break
             end
         end
@@ -45,13 +49,18 @@ function CameraMap:OnMouseLeftRelease(args)
 end
 
 function CameraMap:OnMouseMove(args)
-    if not self.isMoving then
-        return
-    end
-
     local argList = Utils.StringSplit(args, '|')
     local xPos = tonumber(argList[1])
     local yPos = tonumber(argList[2])
+
+    if not self.isMoving then
+        if math.abs(xPos - self.ClickX) < 5 and math.abs(yPos - self.ClickY) < 5 then
+            return
+        else
+            self.isMoving = true
+            GetMapMgr():UnSelectTile()
+        end
+    end
 
     if self.firstMouse then
         self.lastX = xPos

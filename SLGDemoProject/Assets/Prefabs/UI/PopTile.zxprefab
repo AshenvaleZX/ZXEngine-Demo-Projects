@@ -1,0 +1,50 @@
+{
+    "Name": "PopTile",
+    "Layer": 1,
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, 0, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 1, 1]
+        }
+    ],
+    "GameObjects":
+    [
+        {
+            "Name": "BG",
+            "Layer": 1,
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 35, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [1, 1, 1]
+                },
+                {
+                    "Type": "UITextureRenderer",
+                    "TexturePath": "Kenny/UIPack/blue_panel.png"
+                }
+            ]
+        },
+        {
+            "Name": "Arrow",
+            "Layer": 1,
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, -35, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [1, 1, 1]
+                },
+                {
+                    "Type": "UITextureRenderer",
+                    "TexturePath": "Kenny/UIPack/blue_sliderDown.png"
+                }
+            ]
+        }
+    ]
+}
