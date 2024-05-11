@@ -13,19 +13,117 @@
     "GameObjects":
     [
         {
-            "Name": "BG",
+            "Name": "Panel",
             "Layer": 1,
             "Components":
             [
                 {
                     "Type": "Transform",
-                    "Position": [0, 35, 0],
+                    "Position": [0, 65, 0],
                     "Rotation": [0, 0, 0],
-                    "Scale": [1, 1, 1]
+                    "Scale": [1.5, 1.5, 1.5]
                 },
                 {
                     "Type": "UITextureRenderer",
-                    "TexturePath": "Kenny/UIPack/blue_panel.png"
+                    "TexturePath": "Kenny/UIPack/Custom/blue_panel.png"
+                }
+            ],
+            "GameObjects":
+            [
+                {
+                    "Name": "Preview",
+                    "Layer": 1,
+                    "Components":
+                    [
+                        {
+                            "Type": "Transform",
+                            "Position": [0, 20, 0],
+                            "Rotation": [0, 0, 0],
+                            "Scale": [1, 1, 1]
+                        },
+                        {
+                            "Type": "UITextureRenderer",
+                            "TexturePath": "Kenny/HexagonKit/Previews/building-castle.png"
+                        }
+                    ]
+                },
+                {
+                    "Name": "BtnYellow",
+                    "Layer": 1,
+                    "Components":
+                    [
+                        {
+                            "Type": "Transform",
+                            "Position": [-48, -31, 0],
+                            "Rotation": [0, 0, 0],
+                            "Scale": [0.46, 0.46, 0.46]
+                        },
+                        {
+                            "Type": "UITextureRenderer",
+                            "TexturePath": "Kenny/UIPack/yellow_button02.png"
+                        }
+                    ],
+                    "GameObjects":
+                    [
+                        {
+                            "Name": "Text",
+                            "Layer": 1,
+                            "Components":
+                            [
+                                {
+                                    "Type": "Transform",
+                                    "Position": [-48, -12.5, 0],
+                                    "Rotation": [0, 0, 0],
+                                    "Scale": [1, 1, 1]
+                                },
+                                {
+                                    "Type": "UITextRenderer",
+                                    "Text": "Scout",
+                                    "Color": [1, 1, 1, 1],
+                                    "Size": 0.8
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Name": "BtnRed",
+                    "Layer": 1,
+                    "Components":
+                    [
+                        {
+                            "Type": "Transform",
+                            "Position": [48, -31, 0],
+                            "Rotation": [0, 0, 0],
+                            "Scale": [0.46, 0.46, 0.46]
+                        },
+                        {
+                            "Type": "UITextureRenderer",
+                            "TexturePath": "Kenny/UIPack/red_button13.png"
+                        }
+                    ],
+                    "GameObjects":
+                    [
+                        {
+                            "Name": "Text",
+                            "Layer": 1,
+                            "Components":
+                            [
+                                {
+                                    "Type": "Transform",
+                                    "Position": [-52, -12.5, 0],
+                                    "Rotation": [0, 0, 0],
+                                    "Scale": [1, 1, 1]
+                                },
+                                {
+                                    "Type": "UITextRenderer",
+                                    "Text": "Attack",
+                                    "Color": [1, 1, 1, 1],
+                                    "Size": 0.8
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         },
