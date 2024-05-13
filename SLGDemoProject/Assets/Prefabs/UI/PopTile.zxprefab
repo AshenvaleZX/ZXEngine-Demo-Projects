@@ -72,13 +72,15 @@
                             [
                                 {
                                     "Type": "Transform",
-                                    "Position": [-48, -12.5, 0],
+                                    "Position": [0, 0, 0],
                                     "Rotation": [0, 0, 0],
                                     "Scale": [1, 1, 1]
                                 },
                                 {
                                     "Type": "UITextRenderer",
                                     "Text": "Scout",
+                                    "HorizonAlignment": 1,
+                                    "VerticalAlignment": 1,
                                     "Color": [1, 1, 1, 1],
                                     "Size": 0.8
                                 }
@@ -111,13 +113,15 @@
                             [
                                 {
                                     "Type": "Transform",
-                                    "Position": [-52, -12.5, 0],
+                                    "Position": [0, 0, 0],
                                     "Rotation": [0, 0, 0],
                                     "Scale": [1, 1, 1]
                                 },
                                 {
                                     "Type": "UITextRenderer",
                                     "Text": "Attack",
+                                    "HorizonAlignment": 1,
+                                    "VerticalAlignment": 1,
                                     "Color": [1, 1, 1, 1],
                                     "Size": 0.8
                                 }
