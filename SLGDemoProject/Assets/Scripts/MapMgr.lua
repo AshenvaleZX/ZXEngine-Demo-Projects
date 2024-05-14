@@ -51,18 +51,32 @@ end
 function MapMgr:AddTroop(startPos, endPos, type)
     local troopLine = nil
     
-    if type == GlobalConst.MARCH_TYPE_SOLO then
+    if type == GlobalConst.MARCH_TYPE_SOLO or type == GlobalConst.MARCH_TYPE_SOLO_RETURN then
         troopLine = GameObject.Create("Prefabs/Troop.zxprefab")
-    elseif type == GlobalConst.MARCH_TYPE_RALLY then
+    elseif type == GlobalConst.MARCH_TYPE_RALLY or type == GlobalConst.MARCH_TYPE_RALLY_RETURN then
         troopLine = GameObject.Create("Prefabs/TroopRally.zxprefab")
-    elseif type == GlobalConst.MARCH_TYPE_GATHER then
+    elseif type == GlobalConst.MARCH_TYPE_GATHER or type == GlobalConst.MARCH_TYPE_GATHER_RETURN then
         troopLine = GameObject.Create("Prefabs/TroopGather.zxprefab")
-    elseif type == GlobalConst.MARCH_TYPE_SCOUT then
+    elseif type == GlobalConst.MARCH_TYPE_SCOUT or type == GlobalConst.MARCH_TYPE_SCOUT_RETURN then
         troopLine = GameObject.Create("Prefabs/TroopScout.zxprefab")
     end
 
     if troopLine then
-        troopLine:GetComponent("GameLogic"):GetScript():Init(startPos, endPos)
+        local time = troopLine:GetComponent("GameLogic"):GetScript():Init(startPos, endPos)
+
+        if type == GlobalConst.MARCH_TYPE_SOLO then
+            Timer:AddOneTimeCallBack(function()
+                GetMapMgr():AddTroop(endPos, startPos, GlobalConst.MARCH_TYPE_SOLO_RETURN)
+            end, time)
+        elseif type == GlobalConst.MARCH_TYPE_RALLY then
+            Timer:AddOneTimeCallBack(function()
+                GetMapMgr():AddTroop(endPos, startPos, GlobalConst.MARCH_TYPE_RALLY_RETURN)
+            end, time)
+        elseif type == GlobalConst.MARCH_TYPE_SCOUT then
+            Timer:AddOneTimeCallBack(function()
+                GetMapMgr():AddTroop(endPos, startPos, GlobalConst.MARCH_TYPE_SCOUT_RETURN)
+            end, time)
+        end
     end
 end
 

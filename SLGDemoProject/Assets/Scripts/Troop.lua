@@ -48,6 +48,8 @@ function Troop:Init(startPos, endPos)
     self.EndPos = { x = endPos.x, y = self.Height, z = endPos.z }
     self.TotalTime = lineLength / self.Speed
     self.CurTime = 0
+
+    return self.TotalTime
 end
 
 return Troop
