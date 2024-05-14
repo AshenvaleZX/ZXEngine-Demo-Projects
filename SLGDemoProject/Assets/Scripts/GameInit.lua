@@ -1,5 +1,6 @@
 require("Configs/GlobalConst")
 require("Configs/MapConfig")
+require("Timer")
 require("MapMgr")
 require("MapUIMgr")
 
@@ -11,6 +12,7 @@ function GameInit:Start()
 end
 
 function GameInit:Update()
+    Timer:Update()
     GetMapMgr():Update()
     GetMapUIMgr():Update()
 end
