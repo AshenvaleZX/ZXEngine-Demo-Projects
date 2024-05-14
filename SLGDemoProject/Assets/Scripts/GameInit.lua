@@ -12,6 +12,7 @@ end
 
 function GameInit:Update()
     GetMapMgr():Update()
+    GetMapUIMgr():Update()
 end
 
 return GameInit

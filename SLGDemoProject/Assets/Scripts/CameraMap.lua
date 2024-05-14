@@ -4,6 +4,7 @@ CameraMap.ClickX = 0
 CameraMap.ClickY = 0
 CameraMap.ScrollSpeed = 500
 CameraMap.MovementSpeed = 25
+CameraMap.TileClickBlock = false
 
 function GetMapCamera()
     return CameraMap
@@ -27,11 +28,23 @@ function CameraMap:OnMouseLeftPress(args)
 end
 
 function CameraMap:OnMouseLeftRelease(args)
+    -- 点击UI
+    if self.TileClickBlock then
+        self.TileClickBlock = false
+        return
+    end
+
     local argList = Utils.StringSplit(args, '|')
     local xPos = tonumber(argList[1])
     local yPos = tonumber(argList[2])
 
     if math.abs(xPos - self.ClickX) < 5 and math.abs(yPos - self.ClickY) < 5 then
+        -- 已经选中地块的情况下，点任意位置取消选中
+        if GetMapMgr():IsTileSelected() then
+            GetMapMgr():UnSelectTile()
+            return
+        end
+        
         local pos = { x = xPos, y = yPos }
         local ray = self.camera:ScreenPointToRay(pos)
 
@@ -58,7 +71,6 @@ function CameraMap:OnMouseMove(args)
             return
         else
             self.isMoving = true
-            GetMapMgr():UnSelectTile()
         end
     end
 

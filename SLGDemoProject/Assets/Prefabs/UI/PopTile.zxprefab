@@ -8,6 +8,10 @@
             "Position": [0, 0, 0],
             "Rotation": [0, 0, 0],
             "Scale": [1, 1, 1]
+        },
+        {
+            "Type": "GameLogic",
+            "Lua": "Scripts/PopTile.lua"
         }
     ],
     "GameObjects":
@@ -61,6 +65,11 @@
                         {
                             "Type": "UITextureRenderer",
                             "TexturePath": "Kenny/UIPack/yellow_button02.png"
+                        },
+                        {
+                            "Type": "UIButton",
+                            "Width": 190,
+                            "Height": 49
                         }
                     ],
                     "GameObjects":
@@ -102,6 +111,11 @@
                         {
                             "Type": "UITextureRenderer",
                             "TexturePath": "Kenny/UIPack/red_button13.png"
+                        },
+                        {
+                            "Type": "UIButton",
+                            "Width": 190,
+                            "Height": 49
                         }
                     ],
                     "GameObjects":

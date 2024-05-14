@@ -66,6 +66,18 @@ function MapMgr:AddTroop(startPos, endPos, type)
     end
 end
 
+function MapMgr:MarchToTile(tile, type)
+    local startPos = { x = 0, y = 0, z = 0 }
+    local tilePos = tile:GetComponent("Transform"):GetPosition()
+    self:AddTroop(startPos, tilePos, type)
+end
+
+function MapMgr:MarchToSelectedTile(type)
+    if self.SelectedTile then
+        self:MarchToTile(self.SelectedTile, type)
+    end
+end
+
 function MapMgr:SelectTile(tile)
     if self.SelectedTile then
         self.SelectedTile:GetComponent("Transform"):SetPosition(self.SelectedTilePos)
@@ -79,10 +91,6 @@ function MapMgr:SelectTile(tile)
 
     tilePos.y = 2
     self.TileChoose:GetComponent("Transform"):SetPosition(tilePos)
-
-    local tType = math.random(1, 4)
-    local startPos = { x = 0, y = 0, z = 0 }
-    self:AddTroop(startPos, tilePos, tType)
 end
 
 function MapMgr:UnSelectTile()
@@ -115,6 +123,10 @@ function MapMgr:UpdateSelectedTile()
         tilePos.y = self.SelectedTilePos.y + height
         self.SelectedTile:GetComponent("Transform"):SetPosition(tilePos)
     end
+end
+
+function MapMgr:IsTileSelected()
+    return self.SelectedTile ~= nil
 end
 
 function MapMgr:CheckTileCreate()
