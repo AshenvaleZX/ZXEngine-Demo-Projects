@@ -18,7 +18,7 @@ end
 
 function MapUIMgr:UpdatePopTile()
     if self.CurTile then
-        local tilePos = self.CurTile:GetComponent("Transform"):GetPosition()
+        local tilePos = self.CurTile.tileGO:GetComponent("Transform"):GetPosition()
         tilePos.y = tilePos.y + 2
         local screenPoint =  GetMapCamera().camera:WorldToScreenPoint(tilePos)
         self.PopTile:GetComponent("Transform"):SetPosition(screenPoint.x - (GlobalData.srcWidth / 2), (GlobalData.srcHeight / 2) - screenPoint.y + 80, 0)
@@ -28,6 +28,7 @@ end
 function MapUIMgr:SelectTile(tile)
     self.CurTile = tile
     self.PopTile:SetActive(true)
+    self.PopTile:GetComponent("GameLogic"):GetScript():SetTileInfo(tile)
 end
 
 function MapUIMgr:UnSelectTile()

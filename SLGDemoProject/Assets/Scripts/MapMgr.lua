@@ -18,6 +18,20 @@ MapMgr.DecorationType =
     GlobalConst.TILE_DECORATION_HOUSE,
 }
 
+MapMgr.TileTypeToName = 
+{
+    [GlobalConst.TILE_DEFAULT]             = "Flatland",
+    [GlobalConst.TILE_CITY_1]              = "My City",
+    [GlobalConst.TILE_CITY_2]              = "Enemy City",
+    [GlobalConst.TILE_RESOURCE_FARM]       = "Farm",
+    [GlobalConst.TILE_RESOURCE_WOOD]       = "Woods",
+    [GlobalConst.TILE_RESOURCE_STONE]      = "Stone Mine",
+    [GlobalConst.TILE_DECORATION_FOREST]   = "Forest",
+    [GlobalConst.TILE_DECORATION_HILL]     = "Hill",
+    [GlobalConst.TILE_DECORATION_MOUNTAIN] = "Mountain",
+    [GlobalConst.TILE_DECORATION_HOUSE]    = "House",
+}
+
 MapMgr.TileTypeToPrefab = 
 {
     [GlobalConst.TILE_DEFAULT]             = "Prefabs/KenneyHexagon/TileGrass.zxprefab",
@@ -88,16 +102,16 @@ end
 
 function MapMgr:MarchToSelectedTile(type)
     if self.SelectedTile then
-        self:MarchToTile(self.SelectedTile, type)
+        self:MarchToTile(self.SelectedTile.tileGO, type)
     end
 end
 
 function MapMgr:SelectTile(tile)
     if self.SelectedTile then
-        self.SelectedTile:GetComponent("Transform"):SetPosition(self.SelectedTilePos)
+        self.SelectedTile.tileGO:GetComponent("Transform"):SetPosition(self.SelectedTilePos)
     end
 
-    local tilePos = tile:GetComponent("Transform"):GetPosition()
+    local tilePos = tile.tileGO:GetComponent("Transform"):GetPosition()
     self.TileFloat = 0
     self.TileFloatUp = true
     self.SelectedTile = tile
@@ -109,7 +123,7 @@ end
 
 function MapMgr:UnSelectTile()
     if self.SelectedTile then
-        self.SelectedTile:GetComponent("Transform"):SetPosition(self.SelectedTilePos)
+        self.SelectedTile.tileGO:GetComponent("Transform"):SetPosition(self.SelectedTilePos)
     end
 
     self.TileFloat = 0
@@ -135,7 +149,7 @@ function MapMgr:UpdateSelectedTile()
         self.TileChoose:GetComponent("Transform"):SetPosition(tilePos)
 
         tilePos.y = self.SelectedTilePos.y + height
-        self.SelectedTile:GetComponent("Transform"):SetPosition(tilePos)
+        self.SelectedTile.tileGO:GetComponent("Transform"):SetPosition(tilePos)
     end
 end
 
@@ -155,27 +169,32 @@ function MapMgr:CheckTileCreate()
             tileType = MapConfig.Data[i][j].TileType
         end
 
-        if tileType then
-            local prefab = MapMgr.TileTypeToPrefab[tileType]
-            tile = GameObject.Create(prefab)
-        else
+        if tileType == nil then
             local rnd = math.random(1, 16)
             if rnd < 5 then
-                local prefab = MapMgr.TileTypeToPrefab[MapMgr.DecorationType[rnd]]
-                tile = GameObject.Create(prefab)
+                tileType = MapMgr.DecorationType[rnd]
             else
-                tile = GameObject.Create("Prefabs/KenneyHexagon/TileGrass.zxprefab")
+                tileType = GlobalConst.TILE_DEFAULT
             end
         end
+
+        local prefab = MapMgr.TileTypeToPrefab[tileType]
+        tile = GameObject.Create(prefab)
 
         if tile then
             tile:SetParent(self.MapRoot)
             tile:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(i, j))
 
             local key = i .. "_" .. j
-            self.AllTiles[key] = tile
 
-            tile:SetName("Tile_" .. key)
+            self.AllTiles[key] = 
+            {
+                tileGO = tile,
+                type = tileType,
+                pos = { x = i, y = j }
+            }
+
+            tile:SetName("Tile_" .. key .. "_" .. self.TileTypeToName[tileType])
         end
 
         self.TileCreateNum = self.TileCreateNum - 1

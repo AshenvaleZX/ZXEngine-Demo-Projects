@@ -20,4 +20,16 @@ function PopTile:OnBtnAttackClick()
     GetMapMgr():UnSelectTile()
 end
 
+function PopTile:SetTileInfo(tile)
+    if self.NameTextCom == nil then
+        self.NameTextCom = self.gameObject:FindChild("Panel/TileInfo/Name"):GetComponent("UITextRenderer")
+    end
+    if self.PosTextCom == nil then
+        self.PosTextCom = self.gameObject:FindChild("Panel/TileInfo/Coordinate"):GetComponent("UITextRenderer")
+    end
+
+    self.NameTextCom:SetText(GetMapMgr().TileTypeToName[tile.type])
+    self.PosTextCom:SetText("(" .. tile.pos.x .. "," .. tile.pos.y .. ")")
+end
+
 return PopTile

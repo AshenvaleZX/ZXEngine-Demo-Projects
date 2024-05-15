@@ -2,9 +2,15 @@ local CameraMap = NewGameLogic()
 
 CameraMap.ClickX = 0
 CameraMap.ClickY = 0
-CameraMap.ScrollSpeed = 500
-CameraMap.MovementSpeed = 25
 CameraMap.TileClickBlock = false
+
+CameraMap.HeightMin = 20
+CameraMap.HeightMax = 70
+
+CameraMap.MoveSpeed = 0.056
+CameraMap.MoveSpeedMin = 0.02
+CameraMap.MoveSpeedMax = 0.08
+CameraMap.ScrollSpeed = 3
 
 function GetMapCamera()
     return CameraMap
@@ -49,7 +55,7 @@ function CameraMap:OnMouseLeftRelease(args)
         local ray = self.camera:ScreenPointToRay(pos)
 
         for k,v in pairs(GetMapMgr().AllTiles) do
-            local intersection = v:GetComponent("Collider"):IntersectRay(ray)
+            local intersection = v.tileGO:GetComponent("Collider"):IntersectRay(ray)
             if intersection then
                 GetMapMgr():SelectTile(v)
                 GetMapUIMgr():SelectTile(v)
@@ -90,7 +96,7 @@ function CameraMap:OnMouseMove(args)
 end
 
 function CameraMap:MoveCamera(xOffset, yOffset)
-    local velocity = self.MovementSpeed * Time.GetDeltaTime()
+    local velocity = self.MoveSpeed
     local pos = self.trans:GetPosition()
     pos = 
     {
@@ -103,7 +109,7 @@ end
 
 function CameraMap:OnMouseScroll(args)
     local delta = tonumber(args)
-    local dis = delta * self.ScrollSpeed * Time.GetDeltaTime()
+    local dis = delta * self.ScrollSpeed
     local pos = self.trans:GetPosition()
     local forward = self.trans:GetForward()
     pos = 
@@ -112,7 +118,13 @@ function CameraMap:OnMouseScroll(args)
         y = pos.y + forward.y * dis,
         z = pos.z + forward.z * dis,
     }
+    
+    if pos.y < self.HeightMin or pos.y > self.HeightMax then
+        return
+    end
+
     self.trans:SetPosition(pos.x, pos.y, pos.z)
+    self.MoveSpeed = Math.Lerp(self.MoveSpeedMin, self.MoveSpeedMax, (pos.y - self.HeightMin) / (self.HeightMax - self.HeightMin))
 end
 
 return CameraMap
