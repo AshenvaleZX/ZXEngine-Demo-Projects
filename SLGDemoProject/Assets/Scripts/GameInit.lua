@@ -17,4 +17,8 @@ function GameInit:Update()
     GetMapUIMgr():Update()
 end
 
+function GameInit:OnDestroy()
+    GetMapMgr():OnDestroy()
+end
+
 return GameInit

@@ -3,6 +3,8 @@ local MapMgr = {}
 MapMgr.AllTiles = {}
 MapMgr.TileCreateNum = 0
 
+MapMgr.TilePrefabs = {}
+
 MapMgr.SelectedTile = nil
 MapMgr.SelectedTilePos = { x = 0, y = 0, z = 0 }
 MapMgr.TileFloat = 0
@@ -60,6 +62,10 @@ function MapMgr:Init()
     self.MapRoot = GameObject.Find("MapRoot")
     self.TileChoose = GameObject.Create("Prefabs/TileChoose.zxprefab")
     self.TileChoose:GetComponent("Transform"):SetPosition(0, -0.1, 0)
+
+    for k, v in pairs(self.TileTypeToPrefab) do
+        self.TilePrefabs[k] = Resources.LoadPrefab(v)
+    end
 end
 
 function MapMgr:AddTroop(startPos, endPos, type)
@@ -178,8 +184,8 @@ function MapMgr:CheckTileCreate()
             end
         end
 
-        local prefab = MapMgr.TileTypeToPrefab[tileType]
-        tile = GameObject.Create(prefab)
+        local prefab = MapMgr.TilePrefabs[tileType]
+        tile = GameObject.CreateInstance(prefab)
 
         if tile then
             tile:SetParent(self.MapRoot)
@@ -210,4 +216,10 @@ function MapMgr:LogicIndexToPos(x, y)
     end
 
     return { x = (y - midY) * 10, y = 0, z = (midX - x) * 8.66 }
+end
+
+function MapMgr:OnDestroy()
+    for k, v in pairs(self.TilePrefabs) do
+        Resources.ReleasePrefab(v)
+    end
 end
