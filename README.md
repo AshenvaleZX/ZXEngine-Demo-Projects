@@ -5,9 +5,19 @@ This repository contains some actual game demos made with ZXEngine for your refe
 
 ## 如何打开(How To Open)
 
-用ZXEngine打开指定工程的方式目前只有命令行一种，后续会添加支持GUI的方式。命令行方式就是在ZXEngine后面跟一个工程路径，比如：
+打开一个ZXEngine工程的方式有两种，第一种是使用ZXEngine Hub：
 
-Currently, the only way to open a specified project with ZXEngine is to use the command line, and a GUI method will be added in the future. The command line method is to follow ZXEngine with a project path, such as:
+There are two ways to open a ZXEngine project. The first is to use ZXEngine Hub:
+
+![](https://github.com/AshenvaleZX/ZXEngine-Hub/blob/main/Documents/preview0.png)
+
+这个工具的仓库地址在这里：[ZXEngine Hub](https://github.com/AshenvaleZX/ZXEngine-Hub)，相关的介绍和使用说明在README文件中。
+
+The repository of this tool is here: [ZXEngine Hub](https://github.com/AshenvaleZX/ZXEngine-Hub), the introduction and usage instructions are in the README file.
+
+第二种方式是使用命令行，直接在ZXEngine后面加上要打开的工程路径，比如：
+
+The second way is to use the command line and add the project path to be opened after ZXEngine, for example:
 
 **Windows**
 
