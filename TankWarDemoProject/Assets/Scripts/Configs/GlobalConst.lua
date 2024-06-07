@@ -1,0 +1,8 @@
+GlobalConst = 
+{
+    BUILDING_WALL = 1,
+    BUILDING_WALL_CORNER = 2,
+    BUILDING_TOWER_1 = 3,
+    BUILDING_TOWER_2 = 4,
+    BUILDING_TOWER_3 = 5,
+}

@@ -1,0 +1,26 @@
+{
+    "Type": "Forward",
+    "Shader": "Shaders/BlinnPhong.zxshader",
+    "Float":
+    [
+        {
+            "UniformName": "_Ambient",
+            "Value": 0.5
+        },
+        {
+            "UniformName": "_Diffuse",
+            "Value": 0.6
+        },
+        {
+            "UniformName": "_Shininess",
+            "Value": 0.1
+        }
+    ],
+    "Textures":
+    [
+        {
+            "UniformName": "_Texture1",
+            "Path": "Textures/Sand.jpg"
+        }
+    ]
+}

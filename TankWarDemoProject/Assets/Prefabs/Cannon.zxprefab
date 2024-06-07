@@ -1,0 +1,23 @@
+{
+    "Name": "Cannon",
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, 0, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [0.2, 0.2, 0.2]
+        },
+        {
+            "Type": "MeshRenderer",
+            "Geometry": 1,
+            "Material": "Materials/KenneyCastle.zxmat",
+            "CastShadow": true,
+            "ReceiveShadow": true
+        },
+        {
+            "Type": "GameLogic",
+            "Lua": "Scripts/Cannon.lua"
+        }
+    ]
+}

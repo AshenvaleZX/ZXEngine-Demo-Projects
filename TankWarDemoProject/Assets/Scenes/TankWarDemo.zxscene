@@ -1,0 +1,9 @@
+{
+    "GameObjects": 
+    [
+        "Prefabs/MainCamera.zxprefab",
+        "Prefabs/DirLight.zxprefab",
+        "Prefabs/UI/FPSText.zxprefab",
+        "Prefabs/MapRoot.zxprefab"
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "Name": "BuildingWallCorner",
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, 0, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Type": "MeshRenderer",
+            "Mesh": "Kenney/CastleKit/wall-corner.obj",
+            "Material": "Materials/KenneyCastle.zxmat",
+            "CastShadow": true,
+            "ReceiveShadow": true
+        }
+    ]
+}
