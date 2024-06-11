@@ -11,10 +11,11 @@ function CannonMgr:Init()
     self.CannonPrefab = Resources.LoadPrefab("Prefabs/Cannon.zxprefab")
 end
 
-function CannonMgr:FireCannon(pos, dir)
+function CannonMgr:FireCannon(pos, dir, type)
     local cannon = self:GetNextCannon()
     cannon:SetActive(true)
     local script = cannon:GetComponent("GameLogic"):GetScript()
+    script.Type = type
     script.CurPos = pos
     script.MoveDir = dir
 end

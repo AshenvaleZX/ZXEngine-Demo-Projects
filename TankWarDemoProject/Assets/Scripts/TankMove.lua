@@ -6,6 +6,10 @@ TankMove.CurDir = { x = 1, y = 0, z = 0 }
 TankMove.MoveSpeed = 2
 TankMove.MoveDirStack = {}
 
+function GetTank()
+    return TankMove
+end
+
 function TankMove:Start()
     self.trans = self.gameObject:GetComponent("Transform")
     self.CurPos = self.trans:GetPosition()
@@ -43,7 +47,7 @@ function TankMove:PopMoveDir(engine, dir)
 end
 
 function TankMove:Fire()
-    GetCannonMgr():FireCannon(self.CurPos, self.CurDir)
+    GetCannonMgr():FireCannon(self.CurPos, self.CurDir, GlobalConst.CANNON_MINE)
 end
 
 function TankMove:Move(dirName)
@@ -95,6 +99,11 @@ function TankMove:CheckCollision(pos)
     end
 
     return false
+end
+
+function TankMove:OnHit()
+    self.trans:SetPosition(0, 0, -3)
+    self.CurPos = { x = 0, y = 0, z = -3 }
 end
 
 return TankMove

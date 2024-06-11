@@ -117,7 +117,27 @@ function MapMgr:Init()
                 }
     
                 building:SetName("Tile_" .. key .. "_" .. self.BuildingTypeToName[cell.BuildingType])
+
+                AStar.AddBanPos(x, z)
             end
         end
     end
+end
+
+function MapMgr:ValidatePos(pos)
+    local valideSize = MapConfig.Size - 1
+    if pos.x < -valideSize or pos.x > valideSize or pos.z < -valideSize or pos.z > valideSize then
+        return false
+    end
+
+    if self.AllBuildings[tonumber(pos.x) .. "_" .. tonumber(pos.z)] then
+        return false
+    end
+
+    -- 中间围起来的区域
+    if pos.x == 0 and pos.z == 0 then
+        return false
+    end
+
+    return true
 end
