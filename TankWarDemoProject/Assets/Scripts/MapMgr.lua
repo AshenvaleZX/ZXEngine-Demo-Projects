@@ -10,6 +10,10 @@ MapMgr.BuildingTypeToName =
     [GlobalConst.BUILDING_TOWER_1] = "TowerCircle",
     [GlobalConst.BUILDING_TOWER_2] = "TowerSquare",
     [GlobalConst.BUILDING_TOWER_3] = "TowerHexagon",
+    [GlobalConst.BUILDING_TOWER_4] = "TowerSquare2",
+    [GlobalConst.BUILDING_WALL_HALF] = "WallHalf",
+    [GlobalConst.BUILDING_WALL_HALF_TOWER] = "WallHalfTower",
+    [GlobalConst.BUILDING_WALL_CORNER_HALF_TOWER] = "WallCornerHalfTower",
 }
 
 MapMgr.BuildingTypeToPrefab = 
@@ -19,6 +23,10 @@ MapMgr.BuildingTypeToPrefab =
     [GlobalConst.BUILDING_TOWER_1] = "Prefabs/KenneyCastle/TowerCircle.zxprefab",
     [GlobalConst.BUILDING_TOWER_2] = "Prefabs/KenneyCastle/TowerSquare.zxprefab",
     [GlobalConst.BUILDING_TOWER_3] = "Prefabs/KenneyCastle/TowerHexagon.zxprefab",
+    [GlobalConst.BUILDING_TOWER_4] = "Prefabs/KenneyCastle/TowerSquare2.zxprefab",
+    [GlobalConst.BUILDING_WALL_HALF] = "Prefabs/KenneyCastle/BuildingWallHalf.zxprefab",
+    [GlobalConst.BUILDING_WALL_HALF_TOWER] = "Prefabs/KenneyCastle/BuildingWallHalfTower.zxprefab",
+    [GlobalConst.BUILDING_WALL_CORNER_HALF_TOWER] = "Prefabs/KenneyCastle/BuildingWallCornerHalfTower.zxprefab",
 }
 
 function GetMapMgr()
@@ -109,7 +117,7 @@ function MapMgr:Init()
                 }
     
                 building:SetName("Tile_" .. key .. "_" .. self.BuildingTypeToName[cell.BuildingType])
-            end    
+            end
         end
     end
 end

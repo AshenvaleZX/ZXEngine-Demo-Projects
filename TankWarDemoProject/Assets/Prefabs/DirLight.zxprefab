@@ -13,7 +13,7 @@
             "Color": [1, 1, 1],
             "Intensity": 1,
             "LightType": 1,
-            "ShadowRange": 5
+            "ShadowRange": 8
         }
     ]
 }
