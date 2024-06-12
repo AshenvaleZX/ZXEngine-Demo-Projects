@@ -1,0 +1,126 @@
+{
+    "Name": "GameOverPop",
+    "Layer": 1,
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, 0, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Type": "GameLogic",
+            "Lua": "Scripts/GameOverPop.lua"
+        }
+    ],
+    "GameObjects":
+    [
+        {
+            "Name": "Panel",
+            "Layer": 1,
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 70, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [1.5, 1.5, 1.5]
+                },
+                {
+                    "Type": "UITextureRenderer",
+                    "TexturePath": "Kenney/UIPackRPGExpansion/Custom/panel_brown_200x120.png"
+                }
+            ],
+            "GameObjects":
+            [
+                {
+                    "Name": "Title",
+                    "Layer": 1,
+                    "Components":
+                    [
+                        {
+                            "Type": "Transform",
+                            "Position": [0, 31, 0],
+                            "Rotation": [0, 0, 0],
+                            "Scale": [1, 1, 1]
+                        },
+                        {
+                            "Type": "UITextRenderer",
+                            "Text": "Game Over",
+                            "HorizonAlignment": 1,
+                            "VerticalAlignment": 1,
+                            "Color": [1, 1, 1, 1],
+                            "Size": 0.6
+                        }
+                    ]
+                },
+                {
+                    "Name": "ScoreText",
+                    "Layer": 1,
+                    "Components":
+                    [
+                        {
+                            "Type": "Transform",
+                            "Position": [0, -5, 0],
+                            "Rotation": [0, 0, 0],
+                            "Scale": [1, 1, 1]
+                        },
+                        {
+                            "Type": "UITextRenderer",
+                            "Text": "Final Score: 0",
+                            "HorizonAlignment": 1,
+                            "VerticalAlignment": 1,
+                            "Color": [1, 1, 1, 1],
+                            "Size": 0.4
+                        }
+                    ]
+                },
+                {
+                    "Name": "BtnYes",
+                    "Layer": 1,
+                    "Components":
+                    [
+                        {
+                            "Type": "Transform",
+                            "Position": [-40, -37, 0],
+                            "Rotation": [0, 0, 0],
+                            "Scale": [1.5, 1.5, 1.5]
+                        },
+                        {
+                            "Type": "UITextureRenderer",
+                            "TexturePath": "Kenney/UIPackRPGExpansion/iconCheck_beige.png"
+                        },
+                        {
+                            "Type": "UIButton",
+                            "Width": 34,
+                            "Height": 36
+                        }
+                    ]
+                },
+                {
+                    "Name": "BtnNo",
+                    "Layer": 1,
+                    "Components":
+                    [
+                        {
+                            "Type": "Transform",
+                            "Position": [40, -37, 0],
+                            "Rotation": [0, 0, 0],
+                            "Scale": [1.5, 1.5, 1.5]
+                        },
+                        {
+                            "Type": "UITextureRenderer",
+                            "TexturePath": "Kenney/UIPackRPGExpansion/iconCross_grey.png"
+                        },
+                        {
+                            "Type": "UIButton",
+                            "Width": 34,
+                            "Height": 36
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

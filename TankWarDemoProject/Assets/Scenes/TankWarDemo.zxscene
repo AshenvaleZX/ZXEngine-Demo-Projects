@@ -4,6 +4,8 @@
         "Prefabs/MainCamera.zxprefab",
         "Prefabs/DirLight.zxprefab",
         "Prefabs/UI/FPSText.zxprefab",
+        "Prefabs/UI/ScoreUI.zxprefab",
+        "Prefabs/UI/GameOverPop.zxprefab",
         "Prefabs/MapRoot.zxprefab"
     ]
 }

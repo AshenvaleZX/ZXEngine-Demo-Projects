@@ -10,7 +10,7 @@
         },
         {
             "Type": "GameLogic",
-            "Lua": "Scripts/GameInit.lua"
+            "Lua": "Scripts/GameMgr.lua"
         }
     ],
     "GameObjects":

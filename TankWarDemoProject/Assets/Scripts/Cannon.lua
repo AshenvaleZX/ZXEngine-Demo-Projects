@@ -42,6 +42,7 @@ function Cannon:CheckCollision()
             local enemyPos = enemy:GetComponent("Transform"):GetPosition()
             if math.abs(self.CurPos.x - enemyPos.x) < 0.4 and math.abs(self.CurPos.z - enemyPos.z) < 0.4 then
                 GetEnemyMgr():RecycleEnemy(enemy)
+                GetScoreMgr():AddScore(1)
                 return true
             end
         end
@@ -49,6 +50,7 @@ function Cannon:CheckCollision()
         local tankPos = GetTank().CurPos
         if math.abs(self.CurPos.x - tankPos.x) < 0.4 and math.abs(self.CurPos.z - tankPos.z) < 0.4 then
             GetTank():OnHit()
+            GetGameOverPop():Show()
             return true
         end
     end

@@ -19,12 +19,26 @@ function EnemyMgr:Init()
 end
 
 function EnemyMgr:Update()
+    if GetGameMgr().Paused then
+        return
+    end
+    
     if self.CurEnemyCount < self.MaxEnemyCount then
         self.TimeSinceLastEnemy = self.TimeSinceLastEnemy + Time.GetDeltaTime()
         if self.TimeSinceLastEnemy > self.NewEnemyInterval then
             self:NewEnemy()
         end
     end
+end
+
+function EnemyMgr:Reset()
+    for i, v in ipairs(self.ActiveEnemys) do
+        v:SetActive(false)
+        table.insert(self.InactiveEnemys, v)
+    end
+    self.ActiveEnemys = {}
+    self.CurEnemyCount = 0
+    self.TimeSinceLastEnemy = 0
 end
 
 function EnemyMgr:NewEnemy()

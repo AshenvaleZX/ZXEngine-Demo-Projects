@@ -15,7 +15,7 @@
             "HorizonAlignment": 0,
             "VerticalAlignment": 1,
             "Color": [1, 1, 1, 1],
-            "Size": 0.5
+            "Size": 0.4
         },
         {
             "Type": "GameLogic",

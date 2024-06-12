@@ -31,6 +31,10 @@ function EnemyAI:SetPos(pos)
 end
 
 function EnemyAI:Update()
+    if GetGameMgr().Paused then
+        return
+    end
+    
     self:Move(self.CurDirName)
 
     if self.CurDirName == "Right" then

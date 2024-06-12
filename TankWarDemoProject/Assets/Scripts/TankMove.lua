@@ -28,9 +28,19 @@ function TankMove:Start()
 end
 
 function TankMove:Update()
+    if GetGameMgr().Paused then
+        return
+    end
+
     if #self.MoveDirStack > 0 then
         self:Move(self.MoveDirStack[1])
     end
+end
+
+function TankMove:Reset()
+    self.trans:SetPosition(0, 0, -3)
+    self.CurPos = { x = 0, y = 0, z = -3 }
+    self.MoveDirStack = {}
 end
 
 function TankMove:PushMoveDir(engine, dir)
@@ -102,8 +112,6 @@ function TankMove:CheckCollision(pos)
 end
 
 function TankMove:OnHit()
-    self.trans:SetPosition(0, 0, -3)
-    self.CurPos = { x = 0, y = 0, z = -3 }
 end
 
 return TankMove

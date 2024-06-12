@@ -1,0 +1,61 @@
+{
+    "Name": "ScoreUI",
+    "Layer": 1,
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, 300, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Type": "GameLogic",
+            "Lua": "Scripts/ScoreMgr.lua"
+        }
+    ],
+    "GameObjects":
+    [
+        {
+            "Name": "Panel",
+            "Layer": 1,
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [1.5, 1.5, 1.5]
+                },
+                {
+                    "Type": "UITextureRenderer",
+                    "TexturePath": "Kenney/UIPackRPGExpansion/buttonLong_grey_pressed.png"
+                }
+            ],
+            "GameObjects":
+            [
+                {
+                    "Name": "Text",
+                    "Layer": 1,
+                    "Components":
+                    [
+                        {
+                            "Type": "Transform",
+                            "Position": [0, 0, 0],
+                            "Rotation": [0, 0, 0],
+                            "Scale": [1, 1, 1]
+                        },
+                        {
+                            "Type": "UITextRenderer",
+                            "Text": "Score: 0",
+                            "HorizonAlignment": 1,
+                            "VerticalAlignment": 1,
+                            "Color": [0.36, 0.44, 0.78, 1],
+                            "Size": 0.6
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
