@@ -1,9 +1,17 @@
 # ZXEngine-Demo-Projects
-这个仓库存放的是一些使用ZXEngine制作的实际游戏Demo，以供大家参考。同时通过开发这些实际项目反过来完善引擎本身。目前暂时只有一个SLG游戏的大地图demo，以后会添加更多。
+这个仓库存放的是一些使用ZXEngine制作的实际游戏Demo，以供大家参考。同时通过开发这些实际项目反过来完善引擎本身。目前有一个SLG Demo和一个中世纪主题的坦克大战Demo。
 
-This repository contains some actual game demos made with ZXEngine for your reference. At the same time, by developing these actual projects, we can improve the engine itself. Currently there is only one SLG map demo, and more demos will be added in the future.
+This repository contains some actual game demos made with ZXEngine for your reference. At the same time, by developing these actual projects, we can improve the engine itself. There is currently a SLG demo and a medieval-theme tank war demo.
 
-## 如何打开(How To Open)
+## 目录 (Contents)
+
+- [如何打开 (How To Open)](#如何打开-how-to-open)
+
+- [SLG Demo](#slg-demo)
+
+- [Tank War Demo](#tank-war-demo)
+
+## 如何打开 (How To Open)
 
 打开一个ZXEngine工程的方式有两种，第一种是使用ZXEngine Hub：
 
@@ -39,6 +47,8 @@ xmake run zxengine path/to/project
 
 ## SLG Demo
 
-Map demonstration:
-
 ![](Documents/SLGDemo.jpg)
+
+## Tank War Demo
+
+![](Documents/TankWarDemo.jpg)
