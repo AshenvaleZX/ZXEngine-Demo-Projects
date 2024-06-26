@@ -1,0 +1,41 @@
+{
+    "Name": "CoordinateUI",
+    "Layer": 1,
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, -310, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [1, 1, 1]
+        },
+        {
+            "Type": "UITextureRenderer",
+            "TexturePath": "Kenny/UIPackRPGExpansion/buttonLong_brown_pressed.png"
+        }
+    ],
+    "GameObjects":
+    [
+        {
+            "Name": "Text",
+            "Layer": 1,
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 4, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [1, 1, 1]
+                },
+                {
+                    "Type": "UITextRenderer",
+                    "Text": "(0, 0)",
+                    "HorizonAlignment": 1,
+                    "VerticalAlignment": 1,
+                    "Color": [1, 1, 1, 1],
+                    "Size": 0.6
+                }
+            ]
+        }
+    ]
+}

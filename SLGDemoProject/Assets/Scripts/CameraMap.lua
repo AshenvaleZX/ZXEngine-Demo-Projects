@@ -12,17 +12,29 @@ CameraMap.MoveSpeedMin = 0.02
 CameraMap.MoveSpeedMax = 0.08
 CameraMap.ScrollSpeed = 3
 
+-- Z除以Y的比例
+CameraMap.ZYRatio = 1
+
+CameraMap.IsInit = false
+
 function GetMapCamera()
     return CameraMap
 end
 
 function CameraMap:Start()
+    self.ZYRatio = 1 / math.tan(50 * math.pi / 180)
     self.trans = self.gameObject:GetComponent("Transform")
     self.camera = self.gameObject:GetComponent("Camera")
     EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_DOWN, self.OnMouseLeftPress, self)
     EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_UP, self.OnMouseLeftRelease, self)
     EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_PRESS, self.OnMouseMove, self)
     EngineEvent:AddEventHandler(EngineEventType.UPDATE_MOUSE_SCROLL, self.OnMouseScroll, self)
+    
+    self.IsInit = true
+    if GetMapUIMgr().IsInit then
+        local coord = self:GetCurLookTilePos()
+        GetMapUIMgr():SetCenterCoordinate(coord.x, coord.y)
+    end
 end
 
 function CameraMap:OnMouseLeftPress(args)
@@ -105,6 +117,10 @@ function CameraMap:MoveCamera(xOffset, yOffset)
         z = pos.z - yOffset * velocity,
     }
     self.trans:SetPosition(pos.x, pos.y, pos.z)
+
+    pos.z = pos.z + pos.y * self.ZYRatio
+    local centerCoord = GetMapMgr():PosToLogicIndex(pos)
+    GetMapUIMgr():SetCenterCoordinate(centerCoord.x, centerCoord.y)
 end
 
 function CameraMap:OnMouseScroll(args)
@@ -125,6 +141,12 @@ function CameraMap:OnMouseScroll(args)
 
     self.trans:SetPosition(pos.x, pos.y, pos.z)
     self.MoveSpeed = Math.Lerp(self.MoveSpeedMin, self.MoveSpeedMax, (pos.y - self.HeightMin) / (self.HeightMax - self.HeightMin))
+end
+
+function CameraMap:GetCurLookTilePos()
+    local pos = self.trans:GetPosition()
+    pos.z = pos.z + pos.y * self.ZYRatio
+    return GetMapMgr():PosToLogicIndex(pos)
 end
 
 return CameraMap

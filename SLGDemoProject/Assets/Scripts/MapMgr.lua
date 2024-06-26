@@ -211,11 +211,28 @@ function MapMgr:LogicIndexToPos(x, y)
     local midX = math.ceil(MapConfig.Size.x / 2)
     local midY = math.ceil(MapConfig.Size.y / 2)
 
-    if x % 2 == 1 then
-        midY = midY + 0.5
+    if y % 2 == 1 then
+        midX = midX + 0.5
     end
 
-    return { x = (y - midY) * 10, y = 0, z = (midX - x) * 8.66 }
+    return { x = (x - midX) * 10, y = 0, z = (y - midY) * 8.66 }
+end
+
+function MapMgr:PosToLogicIndex(pos)
+    local midX = math.ceil(MapConfig.Size.x / 2)
+    local midY = math.ceil(MapConfig.Size.y / 2)
+
+    local logicX = (pos.x / 10) + midX
+    local logicY = (pos.z / 8.66) + midY
+
+    if logicX % 2 == 1 then
+        logicY = logicY - 0.5
+    end
+
+    logicX = math.floor(logicX + 0.5)
+    logicY = math.floor(logicY + 0.5)
+
+    return {x = logicX, y = logicY}
 end
 
 function MapMgr:OnDestroy()
