@@ -1,0 +1,110 @@
+Setting 
+{
+    Blend SrcAlpha OneMinusSrcAlpha
+    BlendOp Add
+    Cull Off
+    ZTest Always
+    ZWrite Off
+    RenderQueue Transparent
+}
+
+Vertex
+{
+    Input
+    {
+        0 vec3 aPos       : POSITION
+        1 vec2 aTexCoords : TEXCOORD
+        2 vec3 aNormal    : NORMAL
+    }
+
+    Output
+    {
+        0 vec4 WorldPos     : TEXCOORD0
+        1 vec2 ScreenCoords : TEXCOORD1
+        2 vec2 TexCoords    : TEXCOORD2
+    }
+
+    Properties
+    {
+        using ENGINE_Model
+        using ENGINE_View
+        using ENGINE_Projection
+    }
+
+    Program
+    {
+        void main()
+        {
+            TexCoords = aTexCoords;
+            WorldPos = mul(ENGINE_Model * vec4(aPos, 1.0));
+            vec4 clipPos = mul(ENGINE_Projection * ENGINE_View * WorldPos);
+            vec3 ndcPos = clipPos.xyz / clipPos.w;
+            ScreenCoords = ndcPos.xy * 0.5 + 0.5;
+            ZX_Position = clipPos;
+        }
+    }
+}
+
+Fragment
+{
+    Input
+    {
+        0 vec4 WorldPos     : TEXCOORD0
+        1 vec2 ScreenCoords : TEXCOORD1
+        2 vec2 TexCoords    : TEXCOORD2
+    }
+
+    Output
+    {
+        0 vec4 FragColor : SV_Target
+    }
+
+    Properties
+    {
+        using ENGINE_Projection_Inv
+        using ENGINE_View_Inv
+        using ENGINE_Depth_Map
+        using ENGINE_Time
+
+        sampler2D _Texture1
+    }
+
+    Program
+    {
+        void main()
+        {
+#if ZX_API_OPENGL
+            float depth = texture(ENGINE_Depth_Map, ScreenCoords).r;
+            float ndcZ = depth * 2.0 - 1.0;
+#endif
+#if ZX_API_VULKAN
+            float depth = texture(ENGINE_Depth_Map, ScreenCoords).r;
+            float ndcZ = depth;
+#endif
+#if ZX_API_D3D12
+            vec2 screenCoord = vec2(ScreenCoords.x, -ScreenCoords.y);
+            float depth = texture(ENGINE_Depth_Map, screenCoord).r;
+            float ndcZ = depth;
+#endif
+
+            vec2 ndcXY = ScreenCoords * 2.0 - 1.0;
+            vec4 clipPos = vec4(ndcXY, ndcZ, 1.0);
+
+            vec4 vPos = mul(ENGINE_Projection_Inv * clipPos);
+            vPos /= vPos.w;
+            vec4 wPos = mul(ENGINE_View_Inv * vPos);
+
+            vec2 texCoord1 = vec2(TexCoords.x + ENGINE_Time.x * 0.06, TexCoords.y);
+            vec4 texColor1 = texture(_Texture1, texCoord1);
+            vec2 texCoord2 = vec2(TexCoords.x, TexCoords.y + ENGINE_Time.x * 0.03);
+            vec4 texColor2 = texture(_Texture1, texCoord2);
+            float fog = texColor1.r * 0.5 + texColor2.r * 0.5;
+
+            float top = 8;
+            float bottom = 2;
+            float dense = 1 - clamp((wPos.y - bottom) / (top - bottom), 0.0, 1.0);
+
+            FragColor = vec4(fog, fog, fog, dense);
+        }
+    }
+}

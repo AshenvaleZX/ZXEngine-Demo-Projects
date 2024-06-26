@@ -1,0 +1,11 @@
+{
+    "Type": "Forward",
+    "Shader": "Shaders/Fog.zxshader",
+    "Textures":
+    [
+        {
+            "UniformName": "_Texture1",
+            "Path": "Textures/FogShape.png"
+        }
+    ]
+}
