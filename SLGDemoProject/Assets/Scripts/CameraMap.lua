@@ -14,6 +14,14 @@ CameraMap.ScrollSpeed = 3
 
 CameraMap.CenterCoord = { x = 0, y = 0 }
 
+-- 相机自动滑动
+CameraMap.velocityX = 0
+CameraMap.velocityY = 0
+CameraMap.velocityMax = 12000
+CameraMap.velocityXRatio = 0
+CameraMap.velocityYRatio = 0
+CameraMap.SlowDownAcceleration = 12000
+
 -- Z除以Y的比例
 CameraMap.ZYRatio = 1
 
@@ -37,6 +45,11 @@ function CameraMap:Start()
         self:UpdateCurLookTilePos()
         GetMapUIMgr():SetCenterCoordinate(self.CenterCoord.x, self.CenterCoord.y)
     end
+end
+
+function CameraMap:Update()
+    local dt = Time.GetDeltaTime()
+    self:CheckAutoMove(dt)
 end
 
 function CameraMap:OnMouseLeftPress(args)
@@ -103,6 +116,20 @@ function CameraMap:OnMouseMove(args)
     local xOffset = xPos - self.lastX
     local yOffset = self.lastY - yPos
 
+    self.velocityX = xOffset / Time.GetDeltaTime()
+    self.velocityY = yOffset / Time.GetDeltaTime()
+
+    local velocity = math.sqrt(self.velocityX * self.velocityX + self.velocityY * self.velocityY)
+    self.velocityXRatio = self.velocityX / velocity
+    self.velocityYRatio = self.velocityY / velocity
+
+    -- 速度限制
+    if self.velocityMax < velocity then
+        self.velocityX = self.velocityXRatio * self.velocityMax
+        self.velocityY = self.velocityYRatio * self.velocityMax
+    end
+    self.SlowDownAcceleration = 2 * velocity
+
     self.lastX = xPos
     self.lastY = yPos
 
@@ -123,6 +150,38 @@ function CameraMap:MoveCamera(xOffset, yOffset)
     pos.z = pos.z + pos.y * self.ZYRatio
     self.CenterCoord = GetMapMgr():PosToLogicIndex(pos)
     GetMapUIMgr():SetCenterCoordinate(self.CenterCoord.x, self.CenterCoord.y)
+end
+
+function CameraMap:CheckAutoMove(dt)
+    if self.isMoving or (self.velocityX == 0 and self.velocityY == 0) then
+        return
+    end
+
+    local xOffset = self.velocityX * dt
+    local yOffset = self.velocityY * dt
+
+    self:MoveCamera(xOffset, yOffset)
+
+    if self.SlowDownAcceleration > 10 then
+        self.SlowDownAcceleration = self.SlowDownAcceleration - self.SlowDownAcceleration * dt
+        if self.SlowDownAcceleration < 10 then
+            self.SlowDownAcceleration = 10
+        end
+    end
+
+    self.velocityX = self.velocityX - self.velocityXRatio * self.SlowDownAcceleration * dt
+    if self.velocityXRatio > 0 and self.velocityX < 0.1 then
+        self.velocityX = 0
+    elseif self.velocityXRatio < 0 and self.velocityX > -0.1 then
+        self.velocityX = 0
+    end
+
+    self.velocityY = self.velocityY - self.velocityYRatio * self.SlowDownAcceleration * dt
+    if self.velocityYRatio > 0 and self.velocityY < 0.1 then
+        self.velocityY = 0
+    elseif self.velocityYRatio < 0 and self.velocityY > -0.1 then
+        self.velocityY = 0
+    end
 end
 
 function CameraMap:OnMouseScroll(args)
