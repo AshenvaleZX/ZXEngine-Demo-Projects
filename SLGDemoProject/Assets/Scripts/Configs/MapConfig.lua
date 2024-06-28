@@ -1,30 +1,24 @@
 MapConfig = 
 {
-    Size = 
-    {
-        -- 列数
-        x = 23,
-        -- 行数 
-        y = 23 
-    },
+    Size = 255,
     Data = 
     {
-        [10] = 
+        [126] = 
         {
-            [8]  = { TileType = GlobalConst.TILE_CITY_2 },
-            [11] = { TileType = GlobalConst.TILE_RESOURCE_FARM },
+            [124] = { TileType = GlobalConst.TILE_CITY_2 },
+            [127] = { TileType = GlobalConst.TILE_RESOURCE_FARM },
         },
-        [11] = 
+        [127] = 
         {
-            [15] = { TileType = GlobalConst.TILE_RESOURCE_WOOD },
+            [131] = { TileType = GlobalConst.TILE_RESOURCE_WOOD },
         },
-        [12] = 
+        [128] = 
         {
-            [12] = { TileType = GlobalConst.TILE_CITY_1 },
+            [128] = { TileType = GlobalConst.TILE_CITY_1 },
         },
-        [13] = 
+        [129] = 
         {
-            [11] = { TileType = GlobalConst.TILE_RESOURCE_STONE },
+            [127] = { TileType = GlobalConst.TILE_RESOURCE_STONE },
         },
     }
 }

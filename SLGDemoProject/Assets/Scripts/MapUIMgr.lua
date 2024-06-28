@@ -18,8 +18,8 @@ function MapUIMgr:Init()
 
     self.IsInit = true
     if GetMapCamera().IsInit then
-        local coord = GetMapCamera():GetCurLookTilePos()
-        self:SetCenterCoordinate(coord.x, coord.y)
+        GetMapCamera():UpdateCurLookTilePos()
+        self:SetCenterCoordinate(GetMapCamera().CenterCoord.x, GetMapCamera().CenterCoord.y)
     end
 end
 

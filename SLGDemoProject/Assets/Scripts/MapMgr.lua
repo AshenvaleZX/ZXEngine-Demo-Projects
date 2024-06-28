@@ -1,7 +1,6 @@
 local MapMgr = {}
 
 MapMgr.AllTiles = {}
-MapMgr.TileCreateNum = 0
 
 MapMgr.TilePrefabs = {}
 
@@ -11,6 +10,9 @@ MapMgr.TileFloat = 0
 MapMgr.TileFloatMax = 1
 MapMgr.TileFloatUp = true
 MapMgr.TileFloatSpeed = 4
+MapMgr.TileShowSize = 9
+MapMgr.TileShowRange = { lx = 0, rx = 0, ty = 0, by = 0 }
+MapMgr.TileCache = {}
 
 MapMgr.DecorationType = 
 {
@@ -58,12 +60,12 @@ function MapMgr:Update()
 end
 
 function MapMgr:Init()
-    self.TileCreateNum = MapConfig.Size.x * MapConfig.Size.y
     self.MapRoot = GameObject.Find("MapRoot")
     self.TileChoose = GameObject.Create("Prefabs/TileChoose.zxprefab")
     self.TileChoose:GetComponent("Transform"):SetPosition(0, -0.1, 0)
 
     for k, v in pairs(self.TileTypeToPrefab) do
+        self.TileCache[k] = {}
         self.TilePrefabs[k] = Resources.LoadPrefab(v)
     end
 end
@@ -164,12 +166,31 @@ function MapMgr:IsTileSelected()
 end
 
 function MapMgr:CheckTileCreate()
-    if self.TileCreateNum > 0 then
-        -- 第i行第j列，坐上角为起点(1,1)
-        local i = MapConfig.Size.y - math.ceil(self.TileCreateNum / MapConfig.Size.x) + 1
-        local j = MapConfig.Size.x - (self.TileCreateNum - 1) % MapConfig.Size.x
+    self:UpdateCurShowTiles()
 
-        local tile = nil
+    local tileToCreate = {}
+    for i = self.TileShowRange.lx, self.TileShowRange.rx do
+        for j = self.TileShowRange.by, self.TileShowRange.ty do
+            local key = i * 1000 + j
+            if self.AllTiles[key] == nil then
+                table.insert(tileToCreate, { x = i, y = j })
+            end
+        end
+    end
+
+    local tileToCollect = {}
+    for k, v in pairs(self.AllTiles) do
+        if v.pos.x < self.TileShowRange.lx or v.pos.x > self.TileShowRange.rx or v.pos.y < self.TileShowRange.by or v.pos.y > self.TileShowRange.ty then
+            v.tileGO:SetActive(false)
+            table.insert(tileToCollect, k)
+            table.insert(self.TileCache[v.type], v)
+        end
+    end
+    for i, v in ipairs(tileToCollect) do
+        self.AllTiles[v] = nil
+    end
+
+    for i, v in ipairs(tileToCreate) do
         local tileType = nil
         if MapConfig.Data[i] and MapConfig.Data[i][j] then
             tileType = MapConfig.Data[i][j].TileType
@@ -184,32 +205,41 @@ function MapMgr:CheckTileCreate()
             end
         end
 
-        local prefab = MapMgr.TilePrefabs[tileType]
-        tile = GameObject.CreateInstance(prefab)
+        local cacheNum = #self.TileCache[tileType]
+        if cacheNum > 0 then
+            local tile = self.TileCache[tileType][cacheNum]
+            table.remove(self.TileCache[tileType], cacheNum)
 
-        if tile then
-            tile:SetParent(self.MapRoot)
-            tile:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(i, j))
+            tile.pos = { x = v.x, y = v.y }
+            tile.tileGO:SetActive(true)
+            tile.tileGO:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(v.x, v.y))
 
-            local key = i .. "_" .. j
+            local key = v.x * 1000 + v.y
+            self.AllTiles[key] = tile
 
+            tile.tileGO:SetName("Tile_" .. v.x .. "_" .. v.y .. "_" .. self.TileTypeToName[tileType])
+        else
+            local prefab = MapMgr.TilePrefabs[tileType]
+            local tileGO = GameObject.CreateInstance(prefab)
+            tileGO:SetParent(self.MapRoot)
+            tileGO:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(v.x, v.y))
+
+            local key = v.x * 1000 + v.y
             self.AllTiles[key] = 
             {
-                tileGO = tile,
+                tileGO = tileGO,
                 type = tileType,
-                pos = { x = i, y = j }
+                pos = { x = v.x, y = v.y }
             }
 
-            tile:SetName("Tile_" .. key .. "_" .. self.TileTypeToName[tileType])
+            tileGO:SetName("Tile_" .. v.x .. "_" .. v.y .. "_" .. self.TileTypeToName[tileType])
         end
-
-        self.TileCreateNum = self.TileCreateNum - 1
     end
 end
 
 function MapMgr:LogicIndexToPos(x, y)
-    local midX = math.ceil(MapConfig.Size.x / 2)
-    local midY = math.ceil(MapConfig.Size.y / 2)
+    local midX = math.ceil(MapConfig.Size / 2)
+    local midY = math.ceil(MapConfig.Size / 2)
 
     if y % 2 == 1 then
         midX = midX + 0.5
@@ -219,8 +249,8 @@ function MapMgr:LogicIndexToPos(x, y)
 end
 
 function MapMgr:PosToLogicIndex(pos)
-    local midX = math.ceil(MapConfig.Size.x / 2)
-    local midY = math.ceil(MapConfig.Size.y / 2)
+    local midX = math.ceil(MapConfig.Size / 2)
+    local midY = math.ceil(MapConfig.Size / 2)
 
     local logicX = (pos.x / 10) + midX
     local logicY = (pos.z / 8.66) + midY
@@ -232,7 +262,15 @@ function MapMgr:PosToLogicIndex(pos)
     logicX = math.floor(logicX + 0.5)
     logicY = math.floor(logicY + 0.5)
 
-    return {x = logicX, y = logicY}
+    return { x = logicX, y = logicY }
+end
+
+function MapMgr:UpdateCurShowTiles()
+    local center = GetMapCamera().CenterCoord
+    self.TileShowRange.lx = Math.Clamp(center.x - self.TileShowSize, 0, MapConfig.Size)
+    self.TileShowRange.rx = Math.Clamp(center.x + self.TileShowSize, 0, MapConfig.Size)
+    self.TileShowRange.by = Math.Clamp(center.y - self.TileShowSize, 0, MapConfig.Size)
+    self.TileShowRange.ty = Math.Clamp(center.y + self.TileShowSize, 0, MapConfig.Size)
 end
 
 function MapMgr:OnDestroy()

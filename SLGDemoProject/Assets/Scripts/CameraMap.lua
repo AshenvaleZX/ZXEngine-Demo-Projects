@@ -12,6 +12,8 @@ CameraMap.MoveSpeedMin = 0.02
 CameraMap.MoveSpeedMax = 0.08
 CameraMap.ScrollSpeed = 3
 
+CameraMap.CenterCoord = { x = 0, y = 0 }
+
 -- Z除以Y的比例
 CameraMap.ZYRatio = 1
 
@@ -32,8 +34,8 @@ function CameraMap:Start()
     
     self.IsInit = true
     if GetMapUIMgr().IsInit then
-        local coord = self:GetCurLookTilePos()
-        GetMapUIMgr():SetCenterCoordinate(coord.x, coord.y)
+        self:UpdateCurLookTilePos()
+        GetMapUIMgr():SetCenterCoordinate(self.CenterCoord.x, self.CenterCoord.y)
     end
 end
 
@@ -119,8 +121,8 @@ function CameraMap:MoveCamera(xOffset, yOffset)
     self.trans:SetPosition(pos.x, pos.y, pos.z)
 
     pos.z = pos.z + pos.y * self.ZYRatio
-    local centerCoord = GetMapMgr():PosToLogicIndex(pos)
-    GetMapUIMgr():SetCenterCoordinate(centerCoord.x, centerCoord.y)
+    self.CenterCoord = GetMapMgr():PosToLogicIndex(pos)
+    GetMapUIMgr():SetCenterCoordinate(self.CenterCoord.x, self.CenterCoord.y)
 end
 
 function CameraMap:OnMouseScroll(args)
@@ -143,10 +145,10 @@ function CameraMap:OnMouseScroll(args)
     self.MoveSpeed = Math.Lerp(self.MoveSpeedMin, self.MoveSpeedMax, (pos.y - self.HeightMin) / (self.HeightMax - self.HeightMin))
 end
 
-function CameraMap:GetCurLookTilePos()
+function CameraMap:UpdateCurLookTilePos()
     local pos = self.trans:GetPosition()
     pos.z = pos.z + pos.y * self.ZYRatio
-    return GetMapMgr():PosToLogicIndex(pos)
+    self.CenterCoord = GetMapMgr():PosToLogicIndex(pos)
 end
 
 return CameraMap
