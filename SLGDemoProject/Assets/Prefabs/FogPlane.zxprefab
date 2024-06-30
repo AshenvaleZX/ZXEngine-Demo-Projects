@@ -1,0 +1,19 @@
+{
+    "Name": "FogPlane",
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, 10, 0],
+            "Rotation": [0, 0, 0],
+            "Scale": [18, 1, 18]
+        },
+        {
+            "Type": "MeshRenderer",
+            "Geometry": 4,
+            "Material": "Materials/Fog.zxmat",
+            "CastShadow": false,
+            "ReceiveShadow": false
+        }
+    ]
+}

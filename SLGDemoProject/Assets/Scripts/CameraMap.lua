@@ -39,6 +39,9 @@ function CameraMap:Start()
     EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_UP, self.OnMouseLeftRelease, self)
     EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_PRESS, self.OnMouseMove, self)
     EngineEvent:AddEventHandler(EngineEventType.UPDATE_MOUSE_SCROLL, self.OnMouseScroll, self)
+
+    self.FogPlane = GameObject.Create("Prefabs/FogPlane.zxprefab")
+    self.FogPlaneTrans = self.FogPlane:GetComponent("Transform")
     
     self.IsInit = true
     if GetMapUIMgr().IsInit then
@@ -148,6 +151,9 @@ function CameraMap:MoveCamera(xOffset, yOffset)
     self.trans:SetPosition(pos.x, pos.y, pos.z)
 
     pos.z = pos.z + pos.y * self.ZYRatio
+
+    self.FogPlaneTrans:SetPosition(pos.x, 10, pos.z)
+
     self.CenterCoord = GetMapMgr():PosToLogicIndex(pos)
     GetMapUIMgr():SetCenterCoordinate(self.CenterCoord.x, self.CenterCoord.y)
 end

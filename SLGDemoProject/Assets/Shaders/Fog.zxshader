@@ -94,15 +94,45 @@ Fragment
             vPos /= vPos.w;
             vec4 wPos = mul(ENGINE_View_Inv * vPos);
 
-            vec2 texCoord1 = vec2(TexCoords.x + ENGINE_Time.x * 0.06, TexCoords.y);
+            vec2 texColorW = vec2(WorldPos.x * 0.01, WorldPos.z * 0.01);
+            vec2 texCoord1 = vec2(texColorW.x + ENGINE_Time.x * 0.04, texColorW.y + 0.2);
             vec4 texColor1 = texture(_Texture1, texCoord1);
-            vec2 texCoord2 = vec2(TexCoords.x, TexCoords.y + ENGINE_Time.x * 0.03);
+            vec2 texCoord2 = vec2(texColorW.x, texColorW.y + ENGINE_Time.x * 0.02);
             vec4 texColor2 = texture(_Texture1, texCoord2);
             float fog = texColor1.r * 0.5 + texColor2.r * 0.5;
 
             float top = 8;
             float bottom = 2;
-            float dense = 1 - clamp((wPos.y - bottom) / (top - bottom), 0.0, 1.0);
+            float yDense = 1 - clamp((wPos.y - bottom) / (top - bottom), 0.0, 1.0);
+
+            float fogS = 100;
+            float fogE = fogS + 20;
+
+            float xDense = 1;
+            if (WorldPos.x < -fogS)
+            {
+                xDense = clamp(WorldPos.x, -fogE, -fogS);
+                xDense = (xDense + fogE) / 20;
+            }
+            else if (WorldPos.x > fogS)
+            {
+                xDense = clamp(WorldPos.x, fogS, fogE);
+                xDense = (fogE - xDense) / 20;
+            }
+
+            float zDense = 1;
+            if (WorldPos.z < -fogS)
+            {
+                zDense = clamp(WorldPos.z, -fogE, -fogS);
+                zDense = (zDense + fogE) / 20;
+            }
+            else if (WorldPos.z > fogS)
+            {
+                zDense = clamp(WorldPos.z, fogS, fogE);
+                zDense = (fogE - zDense) / 20;
+            }
+
+            float dense = yDense * (1 - (xDense * zDense));
 
             FragColor = vec4(fog, fog, fog, dense);
         }

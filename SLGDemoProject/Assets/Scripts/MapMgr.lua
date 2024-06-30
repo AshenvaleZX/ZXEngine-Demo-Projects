@@ -192,8 +192,8 @@ function MapMgr:CheckTileCreate()
 
     for i, v in ipairs(tileToCreate) do
         local tileType = nil
-        if MapConfig.Data[i] and MapConfig.Data[i][j] then
-            tileType = MapConfig.Data[i][j].TileType
+        if MapConfig.Data[v.x] and MapConfig.Data[v.x][v.y] then
+            tileType = MapConfig.Data[v.x][v.y].TileType
         end
 
         if tileType == nil then
