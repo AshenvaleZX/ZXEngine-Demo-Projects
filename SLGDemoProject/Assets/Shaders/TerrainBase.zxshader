@@ -20,7 +20,7 @@ Vertex
     Output
     {
         0 vec4 WorldPos  : TEXCOORD0
-        1 vec2 TexCoords : TEXCOORD0
+        1 vec2 TexCoords : TEXCOORD1
     }
 
     Properties
@@ -46,7 +46,7 @@ Fragment
     Input
     {
         0 vec4 WorldPos  : TEXCOORD0
-        1 vec2 TexCoords : TEXCOORD0
+        1 vec2 TexCoords : TEXCOORD1
     }
 
     Output
