@@ -1,17 +1,17 @@
 {
-    "Name": "FogPlane",
+    "Name": "TileIconResStone",
     "Components":
     [
         {
             "Type": "Transform",
-            "Position": [0, 10, 0],
-            "Rotation": [0, 0, 0],
-            "Scale": [26, 1, 26]
+            "Position": [0, 1, 0],
+            "Rotation": [-10, 0, 0],
+            "Scale": [1, 1, 1]
         },
         {
             "Type": "MeshRenderer",
             "Geometry": 4,
-            "Material": "Materials/Fog.zxmat",
+            "Material": "Materials/Kenney/TileIconResStone.zxmat",
             "CastShadow": false,
             "ReceiveShadow": false
         }

@@ -1,8 +1,10 @@
 local MapMgr = {}
 
 MapMgr.AllTiles = {}
+MapMgr.AllTileIcons = {}
 
 MapMgr.TilePrefabs = {}
+MapMgr.TileIconPrefabs = {}
 
 MapMgr.SelectedTile = nil
 MapMgr.SelectedTilePos = { x = 0, y = 0, z = 0 }
@@ -12,7 +14,17 @@ MapMgr.TileFloatUp = true
 MapMgr.TileFloatSpeed = 4
 MapMgr.TileShowSize = 9
 MapMgr.TileShowRange = { lx = 0, rx = 0, ty = 0, by = 0 }
+MapMgr.TileIconShowSize = 14
+MapMgr.TileIconShowRange = { lx = 0, rx = 0, ty = 0, by = 0 }
+
 MapMgr.TileCache = {}
+MapMgr.TileIconCache = {}
+MapMgr.TileActive = true
+MapMgr.TileIconActive = false
+MapMgr.TileScale = 1
+MapMgr.TileOriginScale = 9.8
+MapMgr.TileIconScale = 1
+MapMgr.TileIconOriginScale = 0.6
 
 MapMgr.DecorationType = 
 {
@@ -50,6 +62,15 @@ MapMgr.TileTypeToPrefab =
     [GlobalConst.TILE_DECORATION_HOUSE]    = "Prefabs/KenneyHexagon/TileDecorationHouse.zxprefab",
 }
 
+MapMgr.TileTypeToIconPrefab = 
+{
+    [GlobalConst.TILE_CITY_1]              = "Prefabs/KenneyHexagon/TileIconCity.zxprefab",
+    [GlobalConst.TILE_CITY_2]              = "Prefabs/KenneyHexagon/TileIconCity.zxprefab",
+    [GlobalConst.TILE_RESOURCE_FARM]       = "Prefabs/KenneyHexagon/TileIconResFarm.zxprefab",
+    [GlobalConst.TILE_RESOURCE_WOOD]       = "Prefabs/KenneyHexagon/TileIconResWood.zxprefab",
+    [GlobalConst.TILE_RESOURCE_STONE]      = "Prefabs/KenneyHexagon/TileIconResStone.zxprefab",
+}
+
 function GetMapMgr()
     return MapMgr
 end
@@ -67,6 +88,11 @@ function MapMgr:Init()
     for k, v in pairs(self.TileTypeToPrefab) do
         self.TileCache[k] = {}
         self.TilePrefabs[k] = Resources.LoadPrefab(v)
+    end
+
+    for k, v in pairs(self.TileTypeToIconPrefab) do
+        self.TileIconCache[k] = {}
+        self.TileIconPrefabs[k] = Resources.LoadPrefab(v)
     end
 end
 
@@ -178,6 +204,17 @@ function MapMgr:CheckTileCreate()
         end
     end
 
+    local iconToCreate = {}
+    for i = self.TileIconShowRange.lx, self.TileIconShowRange.rx do
+        for j = self.TileIconShowRange.by, self.TileIconShowRange.ty do
+            local key = i * 1000 + j
+            if self.AllTileIcons[key] == nil then
+                table.insert(iconToCreate, { x = i, y = j })
+            end
+        end
+    end
+
+    -- 回收不在显示范围内的地块
     local tileToCollect = {}
     for k, v in pairs(self.AllTiles) do
         if v.pos.x < self.TileShowRange.lx or v.pos.x > self.TileShowRange.rx or v.pos.y < self.TileShowRange.by or v.pos.y > self.TileShowRange.ty then
@@ -190,6 +227,20 @@ function MapMgr:CheckTileCreate()
         self.AllTiles[v] = nil
     end
 
+    -- 回收不在显示范围内的地块图标
+    local iconToCollect = {}
+    for k, v in pairs(self.AllTileIcons) do
+        if v.pos.x < self.TileIconShowRange.lx or v.pos.x > self.TileIconShowRange.rx or v.pos.y < self.TileIconShowRange.by or v.pos.y > self.TileIconShowRange.ty then
+            v.iconGO:SetActive(false)
+            table.insert(iconToCollect, k)
+            table.insert(self.TileIconCache[v.type], v)
+        end
+    end
+    for i, v in ipairs(iconToCollect) do
+        self.AllTileIcons[v] = nil
+    end
+
+    -- 创建地块
     for i, v in ipairs(tileToCreate) do
         local tileType = nil
         if MapConfig.Data[v.x] and MapConfig.Data[v.x][v.y] then
@@ -211,8 +262,11 @@ function MapMgr:CheckTileCreate()
             table.remove(self.TileCache[tileType], cacheNum)
 
             tile.pos = { x = v.x, y = v.y }
-            tile.tileGO:SetActive(true)
-            tile.tileGO:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(v.x, v.y))
+            tile.tileGO:SetActive(self.TileActive)
+            tile.tileGO:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(v.x, v.y, 0))
+
+            local scale = self.TileOriginScale * self.TileScale
+            tile.tileGO:GetComponent("Transform"):SetLocalScale(scale, scale, scale)
 
             local key = v.x * 1000 + v.y
             self.AllTiles[key] = tile
@@ -222,7 +276,11 @@ function MapMgr:CheckTileCreate()
             local prefab = MapMgr.TilePrefabs[tileType]
             local tileGO = GameObject.CreateInstance(prefab)
             tileGO:SetParent(self.MapRoot)
-            tileGO:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(v.x, v.y))
+            tileGO:SetActive(self.TileActive)
+            tileGO:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(v.x, v.y, 0))
+
+            local scale = self.TileOriginScale * self.TileScale
+            tileGO:GetComponent("Transform"):SetLocalScale(scale, scale, scale)
 
             local key = v.x * 1000 + v.y
             self.AllTiles[key] = 
@@ -235,9 +293,55 @@ function MapMgr:CheckTileCreate()
             tileGO:SetName("Tile_" .. v.x .. "_" .. v.y .. "_" .. self.TileTypeToName[tileType])
         end
     end
+    
+    -- 创建地块图标
+    for i, v in ipairs(iconToCreate) do
+        local tileType = nil
+        if MapConfig.Data[v.x] and MapConfig.Data[v.x][v.y] then
+            tileType = MapConfig.Data[v.x][v.y].TileType
+        end
+
+        if self.TileTypeToIconPrefab[tileType] then
+            local iconCacheNum = #self.TileIconCache[tileType]
+            if iconCacheNum > 0 then
+                local icon = self.TileIconCache[tileType][iconCacheNum]
+                table.remove(self.TileIconCache[tileType], iconCacheNum)
+
+                icon.iconGO:SetActive(self.TileIconActive)
+                icon.iconGO:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(v.x, v.y, 1))
+
+                local scale = self.TileIconOriginScale * self.TileIconScale
+                icon.iconGO:GetComponent("Transform"):SetLocalScale(scale, scale, scale)
+
+                local key = v.x * 1000 + v.y
+                self.AllTileIcons[key] = icon
+
+                icon.iconGO:SetName("TileIcon_" .. v.x .. "_" .. v.y .. "_" .. self.TileTypeToName[tileType])
+            else
+                local iconPrefab = MapMgr.TileIconPrefabs[tileType]
+                local iconGO = GameObject.CreateInstance(iconPrefab)
+                iconGO:SetParent(self.MapRoot)
+                iconGO:SetActive(self.TileIconActive)
+                iconGO:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(v.x, v.y, 1))
+
+                local scale = self.TileIconOriginScale * self.TileIconScale
+                iconGO:GetComponent("Transform"):SetLocalScale(scale, scale, scale)
+
+                local key = v.x * 1000 + v.y
+                self.AllTileIcons[key] = 
+                {
+                    iconGO = iconGO,
+                    type = tileType,
+                    pos = { x = v.x, y = v.y }
+                }
+
+                iconGO:SetName("TileIcon_" .. v.x .. "_" .. v.y .. "_" .. self.TileTypeToName[tileType])
+            end
+        end
+    end
 end
 
-function MapMgr:LogicIndexToPos(x, y)
+function MapMgr:LogicIndexToPos(x, y, h)
     local midX = math.ceil(MapConfig.Size / 2)
     local midY = math.ceil(MapConfig.Size / 2)
 
@@ -245,7 +349,7 @@ function MapMgr:LogicIndexToPos(x, y)
         midX = midX + 0.5
     end
 
-    return { x = (x - midX) * 10, y = 0, z = (y - midY) * 8.66 }
+    return { x = (x - midX) * 10, y = h, z = (y - midY) * 8.66 }
 end
 
 function MapMgr:PosToLogicIndex(pos)
@@ -271,6 +375,40 @@ function MapMgr:UpdateCurShowTiles()
     self.TileShowRange.rx = Math.Clamp(center.x + self.TileShowSize, 0, MapConfig.Size)
     self.TileShowRange.by = Math.Clamp(center.y - self.TileShowSize, 0, MapConfig.Size)
     self.TileShowRange.ty = Math.Clamp(center.y + self.TileShowSize, 0, MapConfig.Size)
+    self.TileIconShowRange.lx = Math.Clamp(center.x - self.TileIconShowSize, 0, MapConfig.Size)
+    self.TileIconShowRange.rx = Math.Clamp(center.x + self.TileIconShowSize, 0, MapConfig.Size)
+    self.TileIconShowRange.by = Math.Clamp(center.y - self.TileIconShowSize, 0, MapConfig.Size)
+    self.TileIconShowRange.ty = Math.Clamp(center.y + self.TileIconShowSize, 0, MapConfig.Size)
+end
+
+function MapMgr:SetAllTilesActive(active)
+    self.TileActive = active
+    for k, v in pairs(self.AllTiles) do
+        v.tileGO:SetActive(active)
+    end
+end
+
+function MapMgr:SetAllTileIconsActive(active)
+    self.TileIconActive = active
+    for k, v in pairs(self.AllTileIcons) do
+        v.iconGO:SetActive(active)
+    end
+end
+
+function MapMgr:SetAllTilesScale(scale)
+    self.TileScale = scale
+    local s = self.TileOriginScale * scale
+    for k, v in pairs(self.AllTiles) do
+        v.tileGO:GetComponent("Transform"):SetLocalScale(s, s, s)
+    end
+end
+
+function MapMgr:SetAllTileIconsScale(scale)
+    self.TileIconScale = scale
+    local s = self.TileIconOriginScale * scale
+    for k, v in pairs(self.AllTileIcons) do
+        v.iconGO:GetComponent("Transform"):SetLocalScale(s, s, s)
+    end
 end
 
 function MapMgr:OnDestroy()

@@ -1,11 +1,25 @@
 {
     "Type": "Forward",
-    "Shader": "Shaders/SimpleTexture.zxshader",
+    "Shader": "Shaders/TerrainBase.zxshader",
+    "Float":
+    [
+        {
+            "UniformName": "_Size",
+            "Value": 0.05
+        }
+    ],
+    "Vector2":
+    [
+        {
+            "UniformName": "_Offset",
+            "Value": [5.25, 1.15]
+        }
+    ],
     "Textures":
     [
         {
             "UniformName": "_Texture1",
-            "Path": "Textures/Sand.jpg"
+            "Path": "Textures/TessellationHexagon.png"
         }
     ]
 }

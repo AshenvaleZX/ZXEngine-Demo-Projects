@@ -23,7 +23,7 @@
                     "Type": "Transform",
                     "Position": [0, 0, 0],
                     "Rotation": [0, 0, 0],
-                    "Scale": [15, 1, 15]
+                    "Scale": [30, 1, 30]
                 },
                 {
                     "Type": "MeshRenderer",

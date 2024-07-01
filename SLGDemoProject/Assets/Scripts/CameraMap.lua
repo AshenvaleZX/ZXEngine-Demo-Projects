@@ -5,7 +5,10 @@ CameraMap.ClickY = 0
 CameraMap.TileClickBlock = false
 
 CameraMap.HeightMin = 20
-CameraMap.HeightMax = 70
+CameraMap.HeightZoomIn = 70
+CameraMap.HeightZoomOut = 90
+CameraMap.HeightMax = 100
+CameraMap.LastHeight = 50
 
 CameraMap.MoveSpeed = 0.056
 CameraMap.MoveSpeedMin = 0.02
@@ -42,6 +45,7 @@ function CameraMap:Start()
 
     self.FogPlane = GameObject.Create("Prefabs/FogPlane.zxprefab")
     self.FogPlaneTrans = self.FogPlane:GetComponent("Transform")
+    self.TerrainPlaneTrans = GameObject.Find("MapRoot/MapBase"):GetComponent("Transform")
     
     self.IsInit = true
     if GetMapUIMgr().IsInit then
@@ -153,6 +157,7 @@ function CameraMap:MoveCamera(xOffset, yOffset)
     pos.z = pos.z + pos.y * self.ZYRatio
 
     self.FogPlaneTrans:SetPosition(pos.x, 10, pos.z)
+    self.TerrainPlaneTrans:SetPosition(pos.x, 0, pos.z)
 
     self.CenterCoord = GetMapMgr():PosToLogicIndex(pos)
     GetMapUIMgr():SetCenterCoordinate(self.CenterCoord.x, self.CenterCoord.y)
@@ -205,6 +210,30 @@ function CameraMap:OnMouseScroll(args)
     if pos.y < self.HeightMin or pos.y > self.HeightMax then
         return
     end
+
+    if pos.y > self.HeightZoomIn and pos.y < self.HeightZoomOut then
+        local scale = (pos.y - self.HeightZoomIn) / (self.HeightZoomOut - self.HeightZoomIn)
+        GetMapMgr():SetAllTileIconsScale(scale)
+        scale = 1 - scale
+        GetMapMgr():SetAllTilesScale(scale)
+    end
+
+    -- 退出中间态，进入缩放地图
+    if self.LastHeight < self.HeightZoomOut and pos.y >= self.HeightZoomOut then
+        GetMapMgr():SetAllTilesActive(false)
+        GetMapMgr():SetAllTileIconsScale(1)
+    -- 进入中间态，退出缩放地图
+    elseif self.LastHeight >= self.HeightZoomOut and pos.y < self.HeightZoomOut then
+        GetMapMgr():SetAllTilesActive(true)
+    -- 进入中间态，退出普通地图
+    elseif self.LastHeight < self.HeightZoomIn and pos.y >= self.HeightZoomIn then
+        GetMapMgr():SetAllTileIconsActive(true)
+    -- 退出中间态，进入普通地图
+    elseif self.LastHeight >= self.HeightZoomIn and pos.y < self.HeightZoomIn then
+        GetMapMgr():SetAllTileIconsActive(false)
+        GetMapMgr():SetAllTilesScale(1)
+    end
+    self.LastHeight = pos.y
 
     self.trans:SetPosition(pos.x, pos.y, pos.z)
     self.MoveSpeed = Math.Lerp(self.MoveSpeedMin, self.MoveSpeedMax, (pos.y - self.HeightMin) / (self.HeightMax - self.HeightMin))

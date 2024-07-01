@@ -1,0 +1,11 @@
+{
+    "Type": "Forward",
+    "Shader": "Shaders/SimpleTextureTrans.zxshader",
+    "Textures":
+    [
+        {
+            "UniformName": "_Texture1",
+            "Path": "Kenny/BoardGameIcons/structure_wall.png"
+        }
+    ]
+}
