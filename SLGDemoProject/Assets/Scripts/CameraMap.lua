@@ -8,6 +8,7 @@ CameraMap.HeightMin = 20
 CameraMap.HeightZoomIn = 70
 CameraMap.HeightZoomOut = 90
 CameraMap.HeightMax = 100
+CameraMap.HeightDefault = 50
 CameraMap.LastHeight = 50
 
 CameraMap.MoveSpeed = 0.056
@@ -17,13 +18,22 @@ CameraMap.ScrollSpeed = 3
 
 CameraMap.CenterCoord = { x = 0, y = 0 }
 
--- 相机自动滑动
+-- 相机自动滑动(松手后的)
 CameraMap.velocityX = 0
 CameraMap.velocityY = 0
 CameraMap.velocityMax = 12000
 CameraMap.velocityXRatio = 0
 CameraMap.velocityYRatio = 0
 CameraMap.SlowDownAcceleration = 12000
+
+-- 相机自动滑动(滑动至指定位置)
+CameraMap.AutoMoveStep = 0 -- 0:未滑动 1:滑动中 2:缩放中
+CameraMap.AutoMoveSpeed = 150
+CameraMap.AutoMoveTime = 0
+CameraMap.AutoMoveTotalTime = 0
+CameraMap.AutoMoveOrigin = { x = 0, y = 0, z = 0 }
+CameraMap.AutoMoveTarget = { x = 0, y = 0, z = 0 }
+CameraMap.AutoZoomSpeed = 40
 
 -- Z除以Y的比例
 CameraMap.ZYRatio = 1
@@ -84,21 +94,48 @@ function CameraMap:OnMouseLeftRelease(args)
             GetMapMgr():UnSelectTile()
             return
         end
-        
+
         local pos = { x = xPos, y = yPos }
         local ray = self.camera:ScreenPointToRay(pos)
 
-        for k,v in pairs(GetMapMgr().AllTiles) do
-            local intersection = v.tileGO:GetComponent("Collider"):IntersectRay(ray)
-            if intersection then
-                GetMapMgr():SelectTile(v)
-                GetMapUIMgr():SelectTile(v)
-                break
+        -- 自动移动到指定位置
+        if self.LastHeight > self.HeightZoomIn then
+            local rPos = ray:GetOrigin()
+            local rDir = ray:GetDirection()
+
+            local t = -rPos.y / rDir.y
+            local intersecX = rPos.x + t * rDir.x
+            local intersecZ = rPos.z + t * rDir.z
+
+            local curPos = self.trans:GetPosition()
+            local zOffset = curPos.y * self.ZYRatio
+
+            self.AutoMoveOrigin = curPos
+            self.AutoMoveTarget = { x = intersecX, y = curPos.y, z = intersecZ - zOffset }
+
+            local dis = math.sqrt((curPos.x - self.AutoMoveTarget.x) * (curPos.x - self.AutoMoveTarget.x) + (curPos.z - self.AutoMoveTarget.z) * (curPos.z - self.AutoMoveTarget.z))
+            self.AutoMoveTotalTime = dis / self.AutoMoveSpeed
+            self.AutoMoveTime = 0
+
+            self.AutoMoveStep = 1
+
+            -- 停止拖动的自动滑动
+            self.velocityX = 0
+            self.velocityY = 0
+        -- 点击地块
+        else
+            for k,v in pairs(GetMapMgr().AllTiles) do
+                local intersection = v.tileGO:GetComponent("Collider"):IntersectRay(ray)
+                if intersection then
+                    GetMapMgr():SelectTile(v)
+                    GetMapUIMgr():SelectTile(v)
+                    break
+                end
             end
         end
     end
 
-    self.isMoving = false
+    self.isDragging = false
 end
 
 function CameraMap:OnMouseMove(args)
@@ -106,11 +143,11 @@ function CameraMap:OnMouseMove(args)
     local xPos = tonumber(argList[1])
     local yPos = tonumber(argList[2])
 
-    if not self.isMoving then
+    if not self.isDragging then
         if math.abs(xPos - self.ClickX) < 5 and math.abs(yPos - self.ClickY) < 5 then
             return
         else
-            self.isMoving = true
+            self.isDragging = true
         end
     end
 
@@ -152,46 +189,61 @@ function CameraMap:MoveCamera(xOffset, yOffset)
         y = pos.y,
         z = pos.z - yOffset * velocity,
     }
-    self.trans:SetPosition(pos.x, pos.y, pos.z)
 
-    pos.z = pos.z + pos.y * self.ZYRatio
-
-    self.FogPlaneTrans:SetPosition(pos.x, 10, pos.z)
-    self.TerrainPlaneTrans:SetPosition(pos.x, 0, pos.z)
-
-    self.CenterCoord = GetMapMgr():PosToLogicIndex(pos)
-    GetMapUIMgr():SetCenterCoordinate(self.CenterCoord.x, self.CenterCoord.y)
+    self:UpdatePositon(pos)
 end
 
 function CameraMap:CheckAutoMove(dt)
-    if self.isMoving or (self.velocityX == 0 and self.velocityY == 0) then
-        return
-    end
+    -- 自动移动
+    if self.AutoMoveStep > 0 then
+        if self.AutoMoveStep == 1 then
+            self.AutoMoveTime = self.AutoMoveTime + dt
 
-    local xOffset = self.velocityX * dt
-    local yOffset = self.velocityY * dt
-
-    self:MoveCamera(xOffset, yOffset)
-
-    if self.SlowDownAcceleration > 10 then
-        self.SlowDownAcceleration = self.SlowDownAcceleration - self.SlowDownAcceleration * dt
-        if self.SlowDownAcceleration < 10 then
-            self.SlowDownAcceleration = 10
+            if self.AutoMoveTime >= self.AutoMoveTotalTime then
+                local pos = { x = self.AutoMoveTarget.x, y = self.AutoMoveTarget.y, z = self.AutoMoveTarget.z }
+                self:UpdatePositon(pos)
+                self.AutoMoveStep = 2
+            else
+                local pos = Math.LerpVec3(self.AutoMoveOrigin, self.AutoMoveTarget, self.AutoMoveTime / self.AutoMoveTotalTime)
+                self:UpdatePositon(pos)
+            end
+        elseif self.AutoMoveStep == 2 then
+            local pos = self:OnMouseScroll(self.AutoZoomSpeed * dt)
+            if pos.y < self.HeightDefault then
+                self.AutoMoveStep = 0
+            end
         end
-    end
+    -- 松手后的自动滑动
+    else
+        if self.isDragging or (self.velocityX == 0 and self.velocityY == 0) then
+            return
+        end
 
-    self.velocityX = self.velocityX - self.velocityXRatio * self.SlowDownAcceleration * dt
-    if self.velocityXRatio > 0 and self.velocityX < 0.1 then
-        self.velocityX = 0
-    elseif self.velocityXRatio < 0 and self.velocityX > -0.1 then
-        self.velocityX = 0
-    end
+        local xOffset = self.velocityX * dt
+        local yOffset = self.velocityY * dt
 
-    self.velocityY = self.velocityY - self.velocityYRatio * self.SlowDownAcceleration * dt
-    if self.velocityYRatio > 0 and self.velocityY < 0.1 then
-        self.velocityY = 0
-    elseif self.velocityYRatio < 0 and self.velocityY > -0.1 then
-        self.velocityY = 0
+        self:MoveCamera(xOffset, yOffset)
+
+        if self.SlowDownAcceleration > 10 then
+            self.SlowDownAcceleration = self.SlowDownAcceleration - self.SlowDownAcceleration * dt
+            if self.SlowDownAcceleration < 10 then
+                self.SlowDownAcceleration = 10
+            end
+        end
+
+        self.velocityX = self.velocityX - self.velocityXRatio * self.SlowDownAcceleration * dt
+        if self.velocityXRatio > 0 and self.velocityX < 0.1 then
+            self.velocityX = 0
+        elseif self.velocityXRatio < 0 and self.velocityX > -0.1 then
+            self.velocityX = 0
+        end
+
+        self.velocityY = self.velocityY - self.velocityYRatio * self.SlowDownAcceleration * dt
+        if self.velocityYRatio > 0 and self.velocityY < 0.1 then
+            self.velocityY = 0
+        elseif self.velocityYRatio < 0 and self.velocityY > -0.1 then
+            self.velocityY = 0
+        end
     end
 end
 
@@ -237,12 +289,26 @@ function CameraMap:OnMouseScroll(args)
 
     self.trans:SetPosition(pos.x, pos.y, pos.z)
     self.MoveSpeed = Math.Lerp(self.MoveSpeedMin, self.MoveSpeedMax, (pos.y - self.HeightMin) / (self.HeightMax - self.HeightMin))
+
+    return pos
 end
 
 function CameraMap:UpdateCurLookTilePos()
     local pos = self.trans:GetPosition()
     pos.z = pos.z + pos.y * self.ZYRatio
     self.CenterCoord = GetMapMgr():PosToLogicIndex(pos)
+end
+
+function CameraMap:UpdatePositon(pos)
+    self.trans:SetPosition(pos.x, pos.y, pos.z)
+
+    pos.z = pos.z + pos.y * self.ZYRatio
+
+    self.FogPlaneTrans:SetPosition(pos.x, 10, pos.z)
+    self.TerrainPlaneTrans:SetPosition(pos.x, 0, pos.z)
+
+    self.CenterCoord = GetMapMgr():PosToLogicIndex(pos)
+    GetMapUIMgr():SetCenterCoordinate(self.CenterCoord.x, self.CenterCoord.y)
 end
 
 return CameraMap
