@@ -6,14 +6,485 @@
             "Type": "Transform",
             "Position": [0, 10, 0],
             "Rotation": [0, 0, 0],
-            "Scale": [26, 1, 26]
+            "Scale": [1, 1, 1]
+        }
+    ],
+    "GameObjects":
+    [
+        {
+            "Name": "1x1",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [-180, 0, 180],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
         },
         {
-            "Type": "MeshRenderer",
-            "Geometry": 4,
-            "Material": "Materials/Fog.zxmat",
-            "CastShadow": false,
-            "ReceiveShadow": false
+            "Name": "1x2",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [-90, 0, 180],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "1x3",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0, 180],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "1x4",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [90, 0, 180],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "1x5",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [180, 0, 180],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "2x1",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [-180, 0, 90],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "2x2",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [-90, 0, 90],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "2x3",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0, 90],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "2x4",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [90, 0, 90],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "2x5",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [180, 0, 90],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "3x1",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [-180, 0, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "3x2",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [-90, 0, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "3x3",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "3x4",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [90, 0, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "3x5",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [180, 0, 0],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "4x1",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [-180, 0, -90],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "4x2",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [-90, 0, -90],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "4x3",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0, -90],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "4x4",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [90, 0, -90],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "4x5",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [180, 0, -90],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "5x1",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [-180, 0, -180],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "5x2",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [-90, 0, -180],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "5x3",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0, -180],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "5x4",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [90, 0, -180],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
+        },
+        {
+            "Name": "5x5",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [180, 0, -180],
+                    "Rotation": [0, 0, 0],
+                    "Scale": [9, 1, 9]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 4,
+                    "Material": "Materials/Fog.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
         }
     ]
 }

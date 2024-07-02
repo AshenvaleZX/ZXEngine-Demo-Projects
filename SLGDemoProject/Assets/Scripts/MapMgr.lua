@@ -12,9 +12,9 @@ MapMgr.TileFloat = 0
 MapMgr.TileFloatMax = 1
 MapMgr.TileFloatUp = true
 MapMgr.TileFloatSpeed = 4
-MapMgr.TileShowSize = 9
+MapMgr.TileShowSize = 11
 MapMgr.TileShowRange = { lx = 0, rx = 0, ty = 0, by = 0 }
-MapMgr.TileIconShowSize = 14
+MapMgr.TileIconShowSize = 20
 MapMgr.TileIconShowRange = { lx = 0, rx = 0, ty = 0, by = 0 }
 
 MapMgr.TileCache = {}

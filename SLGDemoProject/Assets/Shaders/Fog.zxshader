@@ -105,7 +105,7 @@ Fragment
             float bottom = 2;
             float yDense = 1 - clamp((wPos.y - bottom) / (top - bottom), 0.0, 1.0);
 
-            float fogS = 100;
+            float fogS = 150;
             float fogE = fogS + 20;
 
             float xDense = 1;

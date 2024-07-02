@@ -5,11 +5,11 @@ CameraMap.ClickY = 0
 CameraMap.TileClickBlock = false
 
 CameraMap.HeightMin = 20
-CameraMap.HeightZoomIn = 70
-CameraMap.HeightZoomOut = 90
-CameraMap.HeightMax = 100
-CameraMap.HeightDefault = 50
-CameraMap.LastHeight = 50
+CameraMap.HeightZoomIn = 80
+CameraMap.HeightZoomOut = 100
+CameraMap.HeightMax = 150
+CameraMap.HeightDefault = 40
+CameraMap.LastHeight = 40
 
 CameraMap.MoveSpeed = 0.056
 CameraMap.MoveSpeedMin = 0.02
@@ -28,12 +28,12 @@ CameraMap.SlowDownAcceleration = 12000
 
 -- 相机自动滑动(滑动至指定位置)
 CameraMap.AutoMoveStep = 0 -- 0:未滑动 1:滑动中 2:缩放中
-CameraMap.AutoMoveSpeed = 150
+CameraMap.AutoMoveSpeed = 200
 CameraMap.AutoMoveTime = 0
 CameraMap.AutoMoveTotalTime = 0
 CameraMap.AutoMoveOrigin = { x = 0, y = 0, z = 0 }
 CameraMap.AutoMoveTarget = { x = 0, y = 0, z = 0 }
-CameraMap.AutoZoomSpeed = 40
+CameraMap.AutoZoomSpeed = 80
 
 -- Z除以Y的比例
 CameraMap.ZYRatio = 1
