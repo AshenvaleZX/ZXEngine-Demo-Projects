@@ -105,31 +105,37 @@ Fragment
             float bottom = 2;
             float yDense = 1 - clamp((wPos.y - bottom) / (top - bottom), 0.0, 1.0);
 
-            float fogS = 150;
-            float fogE = fogS + 20;
+            float fogLeftS = 5 * 10;
+            float fogLeftE = fogLeftS + 20;
+            float fogRightS = 100 * 10;
+            float fogRightE = fogRightS + 20;
+            float fogBottomS = 20 * 8.66;
+            float fogBottomE = fogBottomS + 20;
+            float fogTopS = 100 * 8.66;
+            float fogTopE = fogTopS + 20;
 
             float xDense = 1;
-            if (WorldPos.x < -fogS)
+            if (WorldPos.x < -fogLeftS)
             {
-                xDense = clamp(WorldPos.x, -fogE, -fogS);
-                xDense = (xDense + fogE) / 20;
+                xDense = clamp(WorldPos.x, -fogLeftE, -fogLeftS);
+                xDense = (xDense + fogLeftE) / 20;
             }
-            else if (WorldPos.x > fogS)
+            else if (WorldPos.x > fogRightS)
             {
-                xDense = clamp(WorldPos.x, fogS, fogE);
-                xDense = (fogE - xDense) / 20;
+                xDense = clamp(WorldPos.x, fogRightS, fogRightE);
+                xDense = (fogRightE - xDense) / 20;
             }
 
             float zDense = 1;
-            if (WorldPos.z < -fogS)
+            if (WorldPos.z < -fogBottomS)
             {
-                zDense = clamp(WorldPos.z, -fogE, -fogS);
-                zDense = (zDense + fogE) / 20;
+                zDense = clamp(WorldPos.z, -fogBottomE, -fogBottomS);
+                zDense = (zDense + fogBottomE) / 20;
             }
-            else if (WorldPos.z > fogS)
+            else if (WorldPos.z > fogTopS)
             {
-                zDense = clamp(WorldPos.z, fogS, fogE);
-                zDense = (fogE - zDense) / 20;
+                zDense = clamp(WorldPos.z, fogTopS, fogTopE);
+                zDense = (fogTopE - zDense) / 20;
             }
 
             float dense = yDense * (1 - (xDense * zDense));

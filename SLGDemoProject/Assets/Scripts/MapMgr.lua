@@ -17,6 +17,9 @@ MapMgr.TileShowRange = { lx = 0, rx = 0, ty = 0, by = 0 }
 MapMgr.TileIconShowSize = 20
 MapMgr.TileIconShowRange = { lx = 0, rx = 0, ty = 0, by = 0 }
 
+-- 已清除迷雾的区域
+MapMgr.ClearedRange = { lx = 123, rx = 228, ty = 228, by = 108 }
+
 MapMgr.TileCache = {}
 MapMgr.TileIconCache = {}
 MapMgr.TileActive = true
@@ -259,9 +262,19 @@ function MapMgr:CheckTileCreate()
     local iconToCreate = {}
     for i = self.TileIconShowRange.lx, self.TileIconShowRange.rx do
         for j = self.TileIconShowRange.by, self.TileIconShowRange.ty do
-            local key = i * 1000 + j
-            if self.AllTileIcons[key] == nil then
-                table.insert(iconToCreate, { x = i, y = j })
+            -- 已清除迷雾的区域才显示图标
+            if i >= self.ClearedRange.lx and i <= self.ClearedRange.rx and j >= self.ClearedRange.by and j <= self.ClearedRange.ty then
+                local tileType = nil
+                if MapConfig.Data[i] and MapConfig.Data[i][j] then
+                    tileType = MapConfig.Data[i][j].TileType
+                end
+                -- 有配置才需要创建
+                if tileType and self.TileTypeToIconPrefab[tileType] then
+                    local key = i * 1000 + j
+                    if self.AllTileIcons[key] == nil then
+                        table.insert(iconToCreate, { x = i, y = j })
+                    end
+                end
             end
         end
     end
@@ -353,12 +366,13 @@ function MapMgr:CheckTileCreate()
             tileType = MapConfig.Data[v.x][v.y].TileType
         end
 
-        if self.TileTypeToIconPrefab[tileType] then
+        if tileType and self.TileTypeToIconPrefab[tileType] then
             local iconCacheNum = #self.TileIconCache[tileType]
             if iconCacheNum > 0 then
                 local icon = self.TileIconCache[tileType][iconCacheNum]
                 table.remove(self.TileIconCache[tileType], iconCacheNum)
 
+                icon.pos = { x = v.x, y = v.y }
                 icon.iconGO:SetActive(self.TileIconActive)
                 icon.iconGO:GetComponent("Transform"):SetPosition(self:LogicIndexToPos(v.x, v.y, 1))
 
