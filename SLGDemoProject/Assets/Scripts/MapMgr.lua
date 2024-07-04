@@ -26,6 +26,21 @@ MapMgr.TileOriginScale = 9.8
 MapMgr.TileIconScale = 1
 MapMgr.TileIconOriginScale = 0.6
 
+MapMgr.ResourceType = 
+{
+    GlobalConst.TILE_RESOURCE_FARM,
+    GlobalConst.TILE_RESOURCE_WOOD,
+    GlobalConst.TILE_RESOURCE_STONE,
+}
+
+MapMgr.MonsterType = 
+{
+    GlobalConst.TILE_MONSTER_1,
+    GlobalConst.TILE_MONSTER_2,
+    GlobalConst.TILE_MONSTER_3,
+    GlobalConst.TILE_MONSTER_4,
+}
+
 MapMgr.DecorationType = 
 {
     GlobalConst.TILE_DECORATION_FOREST,
@@ -42,6 +57,10 @@ MapMgr.TileTypeToName =
     [GlobalConst.TILE_RESOURCE_FARM]       = "Farm",
     [GlobalConst.TILE_RESOURCE_WOOD]       = "Woods",
     [GlobalConst.TILE_RESOURCE_STONE]      = "Stone Mine",
+    [GlobalConst.TILE_MONSTER_1]           = "Monster Lv1",
+    [GlobalConst.TILE_MONSTER_2]           = "Monster Lv2",
+    [GlobalConst.TILE_MONSTER_3]           = "Monster Lv3",
+    [GlobalConst.TILE_MONSTER_4]           = "Monster Lv4",
     [GlobalConst.TILE_DECORATION_FOREST]   = "Forest",
     [GlobalConst.TILE_DECORATION_HILL]     = "Hill",
     [GlobalConst.TILE_DECORATION_MOUNTAIN] = "Mountain",
@@ -56,6 +75,10 @@ MapMgr.TileTypeToPrefab =
     [GlobalConst.TILE_RESOURCE_FARM]       = "Prefabs/KenneyHexagon/TileResourceFarm.zxprefab",
     [GlobalConst.TILE_RESOURCE_WOOD]       = "Prefabs/KenneyHexagon/TileResourceWood.zxprefab",
     [GlobalConst.TILE_RESOURCE_STONE]      = "Prefabs/KenneyHexagon/TileResourceStone.zxprefab",
+    [GlobalConst.TILE_MONSTER_1]           = "Prefabs/KenneyHexagon/TileMonster1.zxprefab",
+    [GlobalConst.TILE_MONSTER_2]           = "Prefabs/KenneyHexagon/TileMonster2.zxprefab",
+    [GlobalConst.TILE_MONSTER_3]           = "Prefabs/KenneyHexagon/TileMonster3.zxprefab",
+    [GlobalConst.TILE_MONSTER_4]           = "Prefabs/KenneyHexagon/TileMonster4.zxprefab",
     [GlobalConst.TILE_DECORATION_FOREST]   = "Prefabs/KenneyHexagon/TileDecorationForest.zxprefab",
     [GlobalConst.TILE_DECORATION_HILL]     = "Prefabs/KenneyHexagon/TileDecorationHill.zxprefab",
     [GlobalConst.TILE_DECORATION_MOUNTAIN] = "Prefabs/KenneyHexagon/TileDecorationMountain.zxprefab",
@@ -64,11 +87,15 @@ MapMgr.TileTypeToPrefab =
 
 MapMgr.TileTypeToIconPrefab = 
 {
-    [GlobalConst.TILE_CITY_1]              = "Prefabs/KenneyHexagon/TileIconCity.zxprefab",
-    [GlobalConst.TILE_CITY_2]              = "Prefabs/KenneyHexagon/TileIconCity.zxprefab",
+    [GlobalConst.TILE_CITY_1]              = "Prefabs/KenneyHexagon/TileIconCity1.zxprefab",
+    [GlobalConst.TILE_CITY_2]              = "Prefabs/KenneyHexagon/TileIconCity2.zxprefab",
     [GlobalConst.TILE_RESOURCE_FARM]       = "Prefabs/KenneyHexagon/TileIconResFarm.zxprefab",
     [GlobalConst.TILE_RESOURCE_WOOD]       = "Prefabs/KenneyHexagon/TileIconResWood.zxprefab",
     [GlobalConst.TILE_RESOURCE_STONE]      = "Prefabs/KenneyHexagon/TileIconResStone.zxprefab",
+    [GlobalConst.TILE_MONSTER_1]           = "Prefabs/KenneyHexagon/TileIconMonster.zxprefab",
+    [GlobalConst.TILE_MONSTER_2]           = "Prefabs/KenneyHexagon/TileIconMonster.zxprefab",
+    [GlobalConst.TILE_MONSTER_3]           = "Prefabs/KenneyHexagon/TileIconMonster.zxprefab",
+    [GlobalConst.TILE_MONSTER_4]           = "Prefabs/KenneyHexagon/TileIconMonster.zxprefab",
 }
 
 function GetMapMgr()
@@ -93,6 +120,31 @@ function MapMgr:Init()
     for k, v in pairs(self.TileTypeToIconPrefab) do
         self.TileIconCache[k] = {}
         self.TileIconPrefabs[k] = Resources.LoadPrefab(v)
+    end
+
+    -- 初始化地图配置
+    for i = 1, MapConfig.Size do
+        for j = 1, MapConfig.Size do
+            if MapConfig.Data[i] and MapConfig.Data[i][j] then
+                -- 保持原配置
+            else
+                local rnd = math.random(1, 80)
+                local tileType = nil
+                if rnd <= 9 then
+                    local idx = rnd % 3 + 1
+                    tileType = self.ResourceType[idx]
+                elseif rnd <= 13 then
+                    tileType = self.MonsterType[rnd - 9]
+                end
+
+                if tileType then
+                    if not MapConfig.Data[i] then
+                        MapConfig.Data[i] = {}
+                    end
+                    MapConfig.Data[i][j] = { TileType = tileType }
+                end
+            end
+        end
     end
 end
 

@@ -1,5 +1,5 @@
 {
-    "Name": "TileIconCity",
+    "Name": "TileIconMonster",
     "Components":
     [
         {
@@ -11,7 +11,7 @@
         {
             "Type": "MeshRenderer",
             "Geometry": 4,
-            "Material": "Materials/Kenney/TileIconCity.zxmat",
+            "Material": "Materials/Kenney/TileIconMonster.zxmat",
             "CastShadow": false,
             "ReceiveShadow": false
         }

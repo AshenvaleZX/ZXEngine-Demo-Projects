@@ -20,5 +20,9 @@ MapConfig =
         {
             [127] = { TileType = GlobalConst.TILE_RESOURCE_STONE },
         },
+        [132] = 
+        {
+            [129] = { TileType = GlobalConst.TILE_MONSTER_4 },
+        },
     }
 }
