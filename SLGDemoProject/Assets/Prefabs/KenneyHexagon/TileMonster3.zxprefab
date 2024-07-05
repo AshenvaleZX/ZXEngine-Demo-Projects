@@ -42,6 +42,10 @@
                     "Material": "Materials/Kenney/WatercraftPack.zxmat",
                     "CastShadow": false,
                     "ReceiveShadow": false
+                },
+                {
+                    "Type": "GameLogic",
+                    "Lua": "Scripts/NPCMoveSquare.lua"
                 }
             ]
         }
