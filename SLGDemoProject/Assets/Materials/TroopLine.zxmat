@@ -8,6 +8,13 @@
             "Value": 1.0
         }
     ],
+    "Color":
+    [
+        {
+            "UniformName": "_Color",
+            "Value": [0.0, 1.0, 0.0, 1.0]
+        }
+    ],
     "Textures":
     [
         {

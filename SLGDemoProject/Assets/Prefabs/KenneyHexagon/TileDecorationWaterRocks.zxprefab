@@ -1,0 +1,27 @@
+{
+    "Name": "TileDecorationWaterRocks",
+    "Components":
+    [
+        {
+            "Type": "Transform",
+            "Position": [0, 0, 0],
+            "Rotation": [0, -60, 0],
+            "Scale": [9.8, 9.8, 9.8]
+        },
+        {
+            "Type": "MeshRenderer",
+            "Mesh": "Kenny/HexagonKit/water-rocks.obj",
+            "Material": "Materials/Kenney/HexagonKit.zxmat",
+            "CastShadow": false,
+            "ReceiveShadow": false
+        },
+        {
+            "Type": "BoxCollider",
+            "Friction": 0.4,
+            "Bounciness": 0.2,
+            "FrictionCombine": 0,
+            "BounceCombine": 0,
+            "Size": [1, 0.02, 0.866]
+        }
+    ]
+}

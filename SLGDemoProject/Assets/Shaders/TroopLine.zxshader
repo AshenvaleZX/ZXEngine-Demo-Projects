@@ -54,6 +54,7 @@ Fragment
     Properties
     {
         using ENGINE_Time
+        vec4 _Color
         float _Length
         sampler2D _Texture1
     }
@@ -63,7 +64,9 @@ Fragment
         void main()
         {
             vec2 tCoord = vec2(TexCoords.x, TexCoords.y * _Length + ENGINE_Time.x);
-            FragColor = texture(_Texture1, tCoord);
+            float alpha = texture(_Texture1, tCoord).a;
+            alpha = 1 - (1 - alpha) * (1 - alpha);
+            FragColor = vec4(_Color.rgb, alpha);
         }
     }
 }

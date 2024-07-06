@@ -25,7 +25,7 @@ MapMgr.TileIconCache = {}
 MapMgr.TileActive = true
 MapMgr.TileIconActive = false
 MapMgr.TileScale = 1
-MapMgr.TileOriginScale = 9.8
+MapMgr.TileOriginScale = 9.5
 MapMgr.TileIconScale = 1
 MapMgr.TileIconOriginScale = 0.6
 
@@ -50,42 +50,62 @@ MapMgr.DecorationType =
     GlobalConst.TILE_DECORATION_HILL,
     GlobalConst.TILE_DECORATION_MOUNTAIN,
     GlobalConst.TILE_DECORATION_HOUSE,
+    GlobalConst.TILE_DECORATION_WATER_ISLAND,
+    GlobalConst.TILE_DECORATION_WATER_ROCKS,
+}
+
+MapMgr.RandomDecorationPool = 
+{
+    GlobalConst.TILE_DECORATION_FOREST,
+    GlobalConst.TILE_DECORATION_HILL,
+    GlobalConst.TILE_DECORATION_MOUNTAIN,
+    GlobalConst.TILE_DECORATION_HOUSE,
+    GlobalConst.TILE_DECORATION_WATER_ISLAND,
+    GlobalConst.TILE_DECORATION_WATER_ISLAND,
+    GlobalConst.TILE_DECORATION_WATER_ROCKS,
+    GlobalConst.TILE_DECORATION_WATER_ROCKS,
+    GlobalConst.TILE_DECORATION_WATER_ROCKS,
+    GlobalConst.TILE_DECORATION_WATER_ROCKS,
 }
 
 MapMgr.TileTypeToName = 
 {
-    [GlobalConst.TILE_DEFAULT]             = "Flatland",
-    [GlobalConst.TILE_CITY_1]              = "My City",
-    [GlobalConst.TILE_CITY_2]              = "Enemy City",
-    [GlobalConst.TILE_RESOURCE_FARM]       = "Farm",
-    [GlobalConst.TILE_RESOURCE_WOOD]       = "Woods",
-    [GlobalConst.TILE_RESOURCE_STONE]      = "Stone Mine",
-    [GlobalConst.TILE_MONSTER_1]           = "Monster Lv1",
-    [GlobalConst.TILE_MONSTER_2]           = "Monster Lv2",
-    [GlobalConst.TILE_MONSTER_3]           = "Monster Lv3",
-    [GlobalConst.TILE_MONSTER_4]           = "Monster Lv4",
-    [GlobalConst.TILE_DECORATION_FOREST]   = "Forest",
-    [GlobalConst.TILE_DECORATION_HILL]     = "Hill",
-    [GlobalConst.TILE_DECORATION_MOUNTAIN] = "Mountain",
-    [GlobalConst.TILE_DECORATION_HOUSE]    = "House",
+    [GlobalConst.TILE_DEFAULT]                 = "Flatland",
+    [GlobalConst.TILE_CITY_1]                  = "My City",
+    [GlobalConst.TILE_CITY_2]                  = "Enemy City",
+    [GlobalConst.TILE_RESOURCE_FARM]           = "Farm",
+    [GlobalConst.TILE_RESOURCE_WOOD]           = "Woods",
+    [GlobalConst.TILE_RESOURCE_STONE]          = "Stone Mine",
+    [GlobalConst.TILE_MONSTER_1]               = "Monster Lv1",
+    [GlobalConst.TILE_MONSTER_2]               = "Monster Lv2",
+    [GlobalConst.TILE_MONSTER_3]               = "Monster Lv3",
+    [GlobalConst.TILE_MONSTER_4]               = "Monster Lv4",
+    [GlobalConst.TILE_DECORATION_FOREST]       = "Forest",
+    [GlobalConst.TILE_DECORATION_HILL]         = "Hill",
+    [GlobalConst.TILE_DECORATION_MOUNTAIN]     = "Mountain",
+    [GlobalConst.TILE_DECORATION_HOUSE]        = "House",
+    [GlobalConst.TILE_DECORATION_WATER_ISLAND] = "Island",
+    [GlobalConst.TILE_DECORATION_WATER_ROCKS]  = "Water Rocks",
 }
 
 MapMgr.TileTypeToPrefab = 
 {
-    [GlobalConst.TILE_DEFAULT]             = "Prefabs/KenneyHexagon/TileGrass.zxprefab",
-    [GlobalConst.TILE_CITY_1]              = "Prefabs/KenneyHexagon/TileBuildingCastle.zxprefab",
-    [GlobalConst.TILE_CITY_2]              = "Prefabs/KenneyHexagon/TileBuildingCastle-B.zxprefab",
-    [GlobalConst.TILE_RESOURCE_FARM]       = "Prefabs/KenneyHexagon/TileResourceFarm.zxprefab",
-    [GlobalConst.TILE_RESOURCE_WOOD]       = "Prefabs/KenneyHexagon/TileResourceWood.zxprefab",
-    [GlobalConst.TILE_RESOURCE_STONE]      = "Prefabs/KenneyHexagon/TileResourceStone.zxprefab",
-    [GlobalConst.TILE_MONSTER_1]           = "Prefabs/KenneyHexagon/TileMonster1.zxprefab",
-    [GlobalConst.TILE_MONSTER_2]           = "Prefabs/KenneyHexagon/TileMonster2.zxprefab",
-    [GlobalConst.TILE_MONSTER_3]           = "Prefabs/KenneyHexagon/TileMonster3.zxprefab",
-    [GlobalConst.TILE_MONSTER_4]           = "Prefabs/KenneyHexagon/TileMonster4.zxprefab",
-    [GlobalConst.TILE_DECORATION_FOREST]   = "Prefabs/KenneyHexagon/TileDecorationForest.zxprefab",
-    [GlobalConst.TILE_DECORATION_HILL]     = "Prefabs/KenneyHexagon/TileDecorationHill.zxprefab",
-    [GlobalConst.TILE_DECORATION_MOUNTAIN] = "Prefabs/KenneyHexagon/TileDecorationMountain.zxprefab",
-    [GlobalConst.TILE_DECORATION_HOUSE]    = "Prefabs/KenneyHexagon/TileDecorationHouse.zxprefab",
+    [GlobalConst.TILE_DEFAULT]                 = "Prefabs/KenneyHexagon/TileWater.zxprefab",
+    [GlobalConst.TILE_CITY_1]                  = "Prefabs/KenneyHexagon/TileBuildingCastle.zxprefab",
+    [GlobalConst.TILE_CITY_2]                  = "Prefabs/KenneyHexagon/TileBuildingCastle-B.zxprefab",
+    [GlobalConst.TILE_RESOURCE_FARM]           = "Prefabs/KenneyHexagon/TileResourceFarm.zxprefab",
+    [GlobalConst.TILE_RESOURCE_WOOD]           = "Prefabs/KenneyHexagon/TileResourceWood.zxprefab",
+    [GlobalConst.TILE_RESOURCE_STONE]          = "Prefabs/KenneyHexagon/TileResourceStone.zxprefab",
+    [GlobalConst.TILE_MONSTER_1]               = "Prefabs/KenneyHexagon/TileMonster1.zxprefab",
+    [GlobalConst.TILE_MONSTER_2]               = "Prefabs/KenneyHexagon/TileMonster2.zxprefab",
+    [GlobalConst.TILE_MONSTER_3]               = "Prefabs/KenneyHexagon/TileMonster3.zxprefab",
+    [GlobalConst.TILE_MONSTER_4]               = "Prefabs/KenneyHexagon/TileMonster4.zxprefab",
+    [GlobalConst.TILE_DECORATION_FOREST]       = "Prefabs/KenneyHexagon/TileDecorationForest.zxprefab",
+    [GlobalConst.TILE_DECORATION_HILL]         = "Prefabs/KenneyHexagon/TileDecorationHill.zxprefab",
+    [GlobalConst.TILE_DECORATION_MOUNTAIN]     = "Prefabs/KenneyHexagon/TileDecorationMountain.zxprefab",
+    [GlobalConst.TILE_DECORATION_HOUSE]        = "Prefabs/KenneyHexagon/TileDecorationHouse.zxprefab",
+    [GlobalConst.TILE_DECORATION_WATER_ISLAND] = "Prefabs/KenneyHexagon/TileDecorationWaterIsland.zxprefab",
+    [GlobalConst.TILE_DECORATION_WATER_ROCKS]  = "Prefabs/KenneyHexagon/TileDecorationWaterRocks.zxprefab",
 }
 
 MapMgr.TileTypeToIconPrefab = 
@@ -313,9 +333,9 @@ function MapMgr:CheckTileCreate()
         end
 
         if tileType == nil then
-            local rnd = math.random(1, 16)
-            if rnd < 5 then
-                tileType = MapMgr.DecorationType[rnd]
+            local rnd = math.random(1, 50)
+            if rnd <= 10 then
+                tileType = MapMgr.RandomDecorationPool[rnd]
             else
                 tileType = GlobalConst.TILE_DEFAULT
             end

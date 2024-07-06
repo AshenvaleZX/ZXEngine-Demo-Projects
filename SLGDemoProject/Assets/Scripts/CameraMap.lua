@@ -305,7 +305,7 @@ function CameraMap:UpdatePositon(pos)
     pos.z = pos.z + pos.y * self.ZYRatio
 
     self.FogPlaneTrans:SetPosition(pos.x, 10, pos.z)
-    self.TerrainPlaneTrans:SetPosition(pos.x, 0, pos.z)
+    self.TerrainPlaneTrans:SetPosition(pos.x, 0.75, pos.z)
 
     self.CenterCoord = GetMapMgr():PosToLogicIndex(pos)
     GetMapUIMgr():SetCenterCoordinate(self.CenterCoord.x, self.CenterCoord.y)
