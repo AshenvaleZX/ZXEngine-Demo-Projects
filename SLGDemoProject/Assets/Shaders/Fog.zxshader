@@ -99,46 +99,54 @@ Fragment
             vec4 texColor1 = texture(_Texture1, texCoord1);
             vec2 texCoord2 = vec2(texColorW.x, texColorW.y + ENGINE_Time.x * 0.02);
             vec4 texColor2 = texture(_Texture1, texCoord2);
-            float fog = texColor1.r * 0.5 + texColor2.r * 0.5;
+
+            float fog = texColor1.r * 0.5 + texColor2.g * 0.5;
+            fog = 1 - (1 - fog) * (1 - fog);
 
             float top = 8;
             float bottom = 2;
             float yDense = 1 - clamp((wPos.y - bottom) / (top - bottom), 0.0, 1.0);
 
+            float fadeDis = 50;
             float fogLeftS = 5 * 10;
-            float fogLeftE = fogLeftS + 20;
+            float fogLeftE = fogLeftS + fadeDis;
             float fogRightS = 100 * 10;
-            float fogRightE = fogRightS + 20;
+            float fogRightE = fogRightS + fadeDis;
             float fogBottomS = 20 * 8.66;
-            float fogBottomE = fogBottomS + 20;
+            float fogBottomE = fogBottomS + fadeDis;
             float fogTopS = 100 * 8.66;
-            float fogTopE = fogTopS + 20;
+            float fogTopE = fogTopS + fadeDis;
 
             float xDense = 1;
             if (WorldPos.x < -fogLeftS)
             {
                 xDense = clamp(WorldPos.x, -fogLeftE, -fogLeftS);
-                xDense = (xDense + fogLeftE) / 20;
+                xDense = (xDense + fogLeftE) / fadeDis;
+                xDense *= xDense;
             }
             else if (WorldPos.x > fogRightS)
             {
                 xDense = clamp(WorldPos.x, fogRightS, fogRightE);
-                xDense = (fogRightE - xDense) / 20;
+                xDense = (fogRightE - xDense) / fadeDis;
+                xDense *= xDense;
             }
 
             float zDense = 1;
             if (WorldPos.z < -fogBottomS)
             {
                 zDense = clamp(WorldPos.z, -fogBottomE, -fogBottomS);
-                zDense = (zDense + fogBottomE) / 20;
+                zDense = (zDense + fogBottomE) / fadeDis;
+                zDense *= zDense;
             }
             else if (WorldPos.z > fogTopS)
             {
                 zDense = clamp(WorldPos.z, fogTopS, fogTopE);
-                zDense = (fogTopE - zDense) / 20;
+                zDense = (fogTopE - zDense) / fadeDis;
+                zDense *= zDense;
             }
 
             float dense = yDense * (1 - (xDense * zDense));
+            dense *= dense;
 
             FragColor = vec4(fog, fog, fog, dense);
         }
