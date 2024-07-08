@@ -1,0 +1,18 @@
+{
+    "Type": "Forward",
+    "Shader": "Shaders/SimpleTextureTransColored.zxshader",
+    "Color":
+    [
+        {
+            "UniformName": "_Color",
+            "Value": [1.0, 1.0, 1.0, 1.0]
+        }
+    ],
+    "Textures":
+    [
+        {
+            "UniformName": "_Texture1",
+            "Path": "Kenny/BoardGameIcons/Custom/tag_2_b.png"
+        }
+    ]
+}

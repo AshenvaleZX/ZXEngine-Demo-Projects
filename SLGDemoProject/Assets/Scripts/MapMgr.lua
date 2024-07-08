@@ -31,9 +31,15 @@ MapMgr.TileIconOriginScale = 0.6
 
 MapMgr.ResourceType = 
 {
-    GlobalConst.TILE_RESOURCE_FARM,
-    GlobalConst.TILE_RESOURCE_WOOD,
-    GlobalConst.TILE_RESOURCE_STONE,
+    GlobalConst.TILE_RESOURCE_FARM_1,
+    GlobalConst.TILE_RESOURCE_FARM_2,
+    GlobalConst.TILE_RESOURCE_FARM_3,
+    GlobalConst.TILE_RESOURCE_WOOD_1,
+    GlobalConst.TILE_RESOURCE_WOOD_2,
+    GlobalConst.TILE_RESOURCE_WOOD_3,
+    GlobalConst.TILE_RESOURCE_STONE_1,
+    GlobalConst.TILE_RESOURCE_STONE_2,
+    GlobalConst.TILE_RESOURCE_STONE_3,
 }
 
 MapMgr.MonsterType = 
@@ -46,7 +52,7 @@ MapMgr.MonsterType =
 
 MapMgr.DecorationType = 
 {
-    GlobalConst.TILE_DECORATION_FOREST,
+    GlobalConst.TILE_DECORATION_TOWER,
     GlobalConst.TILE_DECORATION_HILL,
     GlobalConst.TILE_DECORATION_MOUNTAIN,
     GlobalConst.TILE_DECORATION_HOUSE,
@@ -56,7 +62,7 @@ MapMgr.DecorationType =
 
 MapMgr.RandomDecorationPool = 
 {
-    GlobalConst.TILE_DECORATION_FOREST,
+    GlobalConst.TILE_DECORATION_TOWER,
     GlobalConst.TILE_DECORATION_HILL,
     GlobalConst.TILE_DECORATION_MOUNTAIN,
     GlobalConst.TILE_DECORATION_HOUSE,
@@ -73,14 +79,20 @@ MapMgr.TileTypeToName =
     [GlobalConst.TILE_DEFAULT]                 = "Flatland",
     [GlobalConst.TILE_CITY_1]                  = "My City",
     [GlobalConst.TILE_CITY_2]                  = "Enemy City",
-    [GlobalConst.TILE_RESOURCE_FARM]           = "Farm",
-    [GlobalConst.TILE_RESOURCE_WOOD]           = "Woods",
-    [GlobalConst.TILE_RESOURCE_STONE]          = "Stone Mine",
+    [GlobalConst.TILE_RESOURCE_FARM_1]         = "Farm Lv1",
+    [GlobalConst.TILE_RESOURCE_FARM_2]         = "Farm Lv2",
+    [GlobalConst.TILE_RESOURCE_FARM_3]         = "Farm Lv3",
+    [GlobalConst.TILE_RESOURCE_WOOD_1]         = "Woods Lv1",
+    [GlobalConst.TILE_RESOURCE_WOOD_2]         = "Woods Lv2",
+    [GlobalConst.TILE_RESOURCE_WOOD_3]         = "Woods Lv3",
+    [GlobalConst.TILE_RESOURCE_STONE_1]        = "Stone Lv1",
+    [GlobalConst.TILE_RESOURCE_STONE_2]        = "Stone Lv2",
+    [GlobalConst.TILE_RESOURCE_STONE_3]        = "Stone Lv3",
     [GlobalConst.TILE_MONSTER_1]               = "Monster Lv1",
     [GlobalConst.TILE_MONSTER_2]               = "Monster Lv2",
     [GlobalConst.TILE_MONSTER_3]               = "Monster Lv3",
     [GlobalConst.TILE_MONSTER_4]               = "Monster Lv4",
-    [GlobalConst.TILE_DECORATION_FOREST]       = "Forest",
+    [GlobalConst.TILE_DECORATION_TOWER]        = "Tower",
     [GlobalConst.TILE_DECORATION_HILL]         = "Hill",
     [GlobalConst.TILE_DECORATION_MOUNTAIN]     = "Mountain",
     [GlobalConst.TILE_DECORATION_HOUSE]        = "House",
@@ -93,14 +105,20 @@ MapMgr.TileTypeToPrefab =
     [GlobalConst.TILE_DEFAULT]                 = "Prefabs/KenneyHexagon/TileWater.zxprefab",
     [GlobalConst.TILE_CITY_1]                  = "Prefabs/KenneyHexagon/TileBuildingCastle.zxprefab",
     [GlobalConst.TILE_CITY_2]                  = "Prefabs/KenneyHexagon/TileBuildingCastle-B.zxprefab",
-    [GlobalConst.TILE_RESOURCE_FARM]           = "Prefabs/KenneyHexagon/TileResourceFarm.zxprefab",
-    [GlobalConst.TILE_RESOURCE_WOOD]           = "Prefabs/KenneyHexagon/TileResourceWood.zxprefab",
-    [GlobalConst.TILE_RESOURCE_STONE]          = "Prefabs/KenneyHexagon/TileResourceStone.zxprefab",
+    [GlobalConst.TILE_RESOURCE_FARM_1]         = "Prefabs/KenneyHexagon/TileResourceFarm1.zxprefab",
+    [GlobalConst.TILE_RESOURCE_FARM_2]         = "Prefabs/KenneyHexagon/TileResourceFarm2.zxprefab",
+    [GlobalConst.TILE_RESOURCE_FARM_3]         = "Prefabs/KenneyHexagon/TileResourceFarm3.zxprefab",
+    [GlobalConst.TILE_RESOURCE_WOOD_1]         = "Prefabs/KenneyHexagon/TileResourceWood1.zxprefab",
+    [GlobalConst.TILE_RESOURCE_WOOD_2]         = "Prefabs/KenneyHexagon/TileResourceWood2.zxprefab",
+    [GlobalConst.TILE_RESOURCE_WOOD_3]         = "Prefabs/KenneyHexagon/TileResourceWood3.zxprefab",
+    [GlobalConst.TILE_RESOURCE_STONE_1]        = "Prefabs/KenneyHexagon/TileResourceStone1.zxprefab",
+    [GlobalConst.TILE_RESOURCE_STONE_2]        = "Prefabs/KenneyHexagon/TileResourceStone2.zxprefab",
+    [GlobalConst.TILE_RESOURCE_STONE_3]        = "Prefabs/KenneyHexagon/TileResourceStone3.zxprefab",
     [GlobalConst.TILE_MONSTER_1]               = "Prefabs/KenneyHexagon/TileMonster1.zxprefab",
     [GlobalConst.TILE_MONSTER_2]               = "Prefabs/KenneyHexagon/TileMonster2.zxprefab",
     [GlobalConst.TILE_MONSTER_3]               = "Prefabs/KenneyHexagon/TileMonster3.zxprefab",
     [GlobalConst.TILE_MONSTER_4]               = "Prefabs/KenneyHexagon/TileMonster4.zxprefab",
-    [GlobalConst.TILE_DECORATION_FOREST]       = "Prefabs/KenneyHexagon/TileDecorationForest.zxprefab",
+    [GlobalConst.TILE_DECORATION_TOWER]        = "Prefabs/KenneyHexagon/TileDecorationTower.zxprefab",
     [GlobalConst.TILE_DECORATION_HILL]         = "Prefabs/KenneyHexagon/TileDecorationHill.zxprefab",
     [GlobalConst.TILE_DECORATION_MOUNTAIN]     = "Prefabs/KenneyHexagon/TileDecorationMountain.zxprefab",
     [GlobalConst.TILE_DECORATION_HOUSE]        = "Prefabs/KenneyHexagon/TileDecorationHouse.zxprefab",
@@ -112,9 +130,15 @@ MapMgr.TileTypeToIconPrefab =
 {
     [GlobalConst.TILE_CITY_1]              = "Prefabs/KenneyHexagon/TileIconCity1.zxprefab",
     [GlobalConst.TILE_CITY_2]              = "Prefabs/KenneyHexagon/TileIconCity2.zxprefab",
-    [GlobalConst.TILE_RESOURCE_FARM]       = "Prefabs/KenneyHexagon/TileIconResFarm.zxprefab",
-    [GlobalConst.TILE_RESOURCE_WOOD]       = "Prefabs/KenneyHexagon/TileIconResWood.zxprefab",
-    [GlobalConst.TILE_RESOURCE_STONE]      = "Prefabs/KenneyHexagon/TileIconResStone.zxprefab",
+    [GlobalConst.TILE_RESOURCE_FARM_1]     = "Prefabs/KenneyHexagon/TileIconResFarm.zxprefab",
+    [GlobalConst.TILE_RESOURCE_FARM_2]     = "Prefabs/KenneyHexagon/TileIconResFarm.zxprefab",
+    [GlobalConst.TILE_RESOURCE_FARM_3]     = "Prefabs/KenneyHexagon/TileIconResFarm.zxprefab",
+    [GlobalConst.TILE_RESOURCE_WOOD_1]     = "Prefabs/KenneyHexagon/TileIconResWood.zxprefab",
+    [GlobalConst.TILE_RESOURCE_WOOD_2]     = "Prefabs/KenneyHexagon/TileIconResWood.zxprefab",
+    [GlobalConst.TILE_RESOURCE_WOOD_3]     = "Prefabs/KenneyHexagon/TileIconResWood.zxprefab",
+    [GlobalConst.TILE_RESOURCE_STONE_1]    = "Prefabs/KenneyHexagon/TileIconResStone.zxprefab",
+    [GlobalConst.TILE_RESOURCE_STONE_2]    = "Prefabs/KenneyHexagon/TileIconResStone.zxprefab",
+    [GlobalConst.TILE_RESOURCE_STONE_3]    = "Prefabs/KenneyHexagon/TileIconResStone.zxprefab",
     [GlobalConst.TILE_MONSTER_1]           = "Prefabs/KenneyHexagon/TileIconMonster.zxprefab",
     [GlobalConst.TILE_MONSTER_2]           = "Prefabs/KenneyHexagon/TileIconMonster.zxprefab",
     [GlobalConst.TILE_MONSTER_3]           = "Prefabs/KenneyHexagon/TileIconMonster.zxprefab",
@@ -154,8 +178,7 @@ function MapMgr:Init()
                 local rnd = math.random(1, 80)
                 local tileType = nil
                 if rnd <= 9 then
-                    local idx = rnd % 3 + 1
-                    tileType = self.ResourceType[idx]
+                    tileType = self.ResourceType[rnd]
                 elseif rnd <= 13 then
                     tileType = self.MonsterType[rnd - 9]
                 end

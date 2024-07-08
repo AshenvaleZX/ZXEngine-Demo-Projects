@@ -1,5 +1,5 @@
 {
-    "Name": "TileResourceWood",
+    "Name": "TileDecorationTower",
     "Components":
     [
         {
@@ -10,7 +10,7 @@
         },
         {
             "Type": "MeshRenderer",
-            "Mesh": "Kenny/HexagonKit/dirt-lumber.obj",
+            "Mesh": "Kenny/HexagonKit/building-tower.obj",
             "Material": "Materials/Kenney/HexagonKit.zxmat",
             "CastShadow": false,
             "ReceiveShadow": false

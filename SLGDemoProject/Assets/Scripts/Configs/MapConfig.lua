@@ -6,11 +6,11 @@ MapConfig =
         [126] = 
         {
             [124] = { TileType = GlobalConst.TILE_CITY_2 },
-            [127] = { TileType = GlobalConst.TILE_RESOURCE_FARM },
+            [127] = { TileType = GlobalConst.TILE_RESOURCE_FARM_1 },
         },
         [127] = 
         {
-            [131] = { TileType = GlobalConst.TILE_RESOURCE_WOOD },
+            [131] = { TileType = GlobalConst.TILE_RESOURCE_WOOD_2 },
         },
         [128] = 
         {
@@ -18,7 +18,7 @@ MapConfig =
         },
         [129] = 
         {
-            [127] = { TileType = GlobalConst.TILE_RESOURCE_STONE },
+            [127] = { TileType = GlobalConst.TILE_RESOURCE_STONE_3 },
         },
         [132] = 
         {
