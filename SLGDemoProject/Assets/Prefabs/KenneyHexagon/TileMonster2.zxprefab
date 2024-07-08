@@ -38,7 +38,7 @@
                 },
                 {
                     "Type": "MeshRenderer",
-                    "Mesh": "Kenny/WatercraftPack/boat-speed-e.obj",
+                    "Mesh": "Kenny/WatercraftPack/boat-fan.obj",
                     "Material": "Materials/Kenney/WatercraftPack.zxmat",
                     "CastShadow": false,
                     "ReceiveShadow": false
@@ -46,6 +46,25 @@
                 {
                     "Type": "GameLogic",
                     "Lua": "Scripts/NPCMove0.lua"
+                }
+            ]
+        },
+        {
+            "Name": "Level",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0.2, -0.45],
+                    "Rotation": [50, 0, 0],
+                    "Scale": [0.3, 0.3, 0.3]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 5,
+                    "Material": "Materials/Kenney/ShieldTag2.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
                 }
             ]
         }

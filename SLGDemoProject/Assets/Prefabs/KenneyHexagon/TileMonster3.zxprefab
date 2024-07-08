@@ -48,6 +48,25 @@
                     "Lua": "Scripts/NPCMoveSquare.lua"
                 }
             ]
+        },
+        {
+            "Name": "Level",
+            "Components":
+            [
+                {
+                    "Type": "Transform",
+                    "Position": [0, 0.2, -0.45],
+                    "Rotation": [50, 0, 0],
+                    "Scale": [0.3, 0.3, 0.3]
+                },
+                {
+                    "Type": "MeshRenderer",
+                    "Geometry": 5,
+                    "Material": "Materials/Kenney/ShieldTag3.zxmat",
+                    "CastShadow": false,
+                    "ReceiveShadow": false
+                }
+            ]
         }
     ]
 }

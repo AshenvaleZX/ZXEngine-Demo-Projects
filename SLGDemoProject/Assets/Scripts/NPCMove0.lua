@@ -1,7 +1,7 @@
 local NPCMove0 = NewGameLogic()
 
 NPCMove0.Radius = 0.2
-NPCMove0.HalfLength = 0.18
+NPCMove0.HalfLength = 0.16
 NPCMove0.Speed = 0.5
 NPCMove0.Step = 1
 NPCMove0.CurTime = 0
@@ -12,15 +12,17 @@ function NPCMove0:Start()
     self.OriginHeight = self.trans:GetLocalPosition().y
 
     local sqrt2 = math.sqrt(2)
-    self.Line1PointSX = -self.HalfLength / sqrt2 - self.Radius / sqrt2
-    self.Line1PointSZ =  self.HalfLength / sqrt2 - self.Radius / sqrt2
-    self.Line1PointEX =  self.HalfLength / sqrt2 - self.Radius / sqrt2
-    self.Line1PointEZ = -self.HalfLength / sqrt2 - self.Radius / sqrt2
+    self.RoundPos = self.HalfLength / sqrt2
 
-    self.Line2PointSX =  self.HalfLength / sqrt2 + self.Radius / sqrt2
-    self.Line2PointSZ = -self.HalfLength / sqrt2 + self.Radius / sqrt2
-    self.Line2PointEX = -self.HalfLength / sqrt2 + self.Radius / sqrt2
-    self.Line2PointEZ =  self.HalfLength / sqrt2 + self.Radius / sqrt2
+    self.Line1PointSX = -self.RoundPos - self.Radius / sqrt2
+    self.Line1PointSZ =  self.RoundPos - self.Radius / sqrt2
+    self.Line1PointEX =  self.RoundPos - self.Radius / sqrt2
+    self.Line1PointEZ = -self.RoundPos - self.Radius / sqrt2
+
+    self.Line2PointSX =  self.RoundPos + self.Radius / sqrt2
+    self.Line2PointSZ = -self.RoundPos + self.Radius / sqrt2
+    self.Line2PointEX = -self.RoundPos + self.Radius / sqrt2
+    self.Line2PointEZ =  self.RoundPos + self.Radius / sqrt2
 
     self.LineTime = self.HalfLength * 2 / self.Speed
     self.RoundTime = self.Radius * math.pi / self.Speed
@@ -86,8 +88,8 @@ function NPCMove0:RoundMove1()
 
     local pX = self.Radius * math.sin(radian)
     local pZ = self.Radius * math.cos(radian)
-    pX = -pX + self.Radius
-    pZ =  pZ - self.Radius
+    pX = -pX + self.RoundPos
+    pZ =  pZ - self.RoundPos
     self.trans:SetLocalPosition(pX, self.OriginHeight, pZ)
 end
 
@@ -98,8 +100,8 @@ function NPCMove0:RoundMove2()
 
     local pX = self.Radius * math.sin(radian)
     local pZ = self.Radius * math.cos(radian)
-    pX =  pX - self.Radius
-    pZ = -pZ + self.Radius
+    pX =  pX - self.RoundPos
+    pZ = -pZ + self.RoundPos
     self.trans:SetLocalPosition(pX, self.OriginHeight, pZ)
 end
 

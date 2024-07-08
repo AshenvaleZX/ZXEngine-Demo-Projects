@@ -1,6 +1,6 @@
 local NPCMove8 = NewGameLogic()
 
-NPCMove8.Radius = 0.2
+NPCMove8.Radius = 0.18
 NPCMove8.Speed = 0.5
 NPCMove8.Step = 1
 NPCMove8.CurTime = 0
@@ -10,7 +10,7 @@ function NPCMove8:Start()
     self.trans = self.gameObject:GetComponent("Transform")
     self.OriginHeight = self.trans:GetLocalPosition().y
 
-    self.LinePointPos = self.Radius / math.sqrt(2)
+    self.LinePointPos = self.Radius
     self.LineTime = self.Radius * 2 / self.Speed
     self.RoundTime = self.Radius * 1.5 * math.pi / self.Speed
 

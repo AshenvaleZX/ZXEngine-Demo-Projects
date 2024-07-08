@@ -1,7 +1,7 @@
 local NPCMoveSquare = NewGameLogic()
 
 NPCMoveSquare.Radius = 0.2
-NPCMoveSquare.HalfLength = 0.2
+NPCMoveSquare.HalfLength = 0.16
 NPCMoveSquare.Speed = 0.5
 NPCMoveSquare.Step = 1
 NPCMoveSquare.CurTime = 0
@@ -84,8 +84,8 @@ function NPCMoveSquare:RoundMove(step)
 
     local pX = self.Radius * math.sin(radian)
     local pZ = self.Radius * math.cos(radian)
-    pX = -pX + rDirX * self.Radius
-    pZ =  pZ + rDirZ * self.Radius
+    pX = -pX + rDirX * self.HalfLength
+    pZ =  pZ + rDirZ * self.HalfLength
     self.trans:SetLocalPosition(pX, self.OriginHeight, pZ)
 end
 
