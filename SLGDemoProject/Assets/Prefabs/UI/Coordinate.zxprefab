@@ -4,10 +4,12 @@
     "Components":
     [
         {
-            "Type": "Transform",
+            "Type": "RectTransform",
             "Position": [0, -310, 0],
             "Rotation": [0, 0, 0],
-            "Scale": [1, 1, 1]
+            "Scale": [1, 1, 1],
+            "VerticalAnchor": 1,
+            "HorizontalAnchor": 1
         },
         {
             "Type": "UITextureRenderer",
@@ -22,10 +24,12 @@
             "Components":
             [
                 {
-                    "Type": "Transform",
+                    "Type": "RectTransform",
                     "Position": [0, 4, 0],
                     "Rotation": [0, 0, 0],
-                    "Scale": [1, 1, 1]
+                    "Scale": [1, 1, 1],
+                    "VerticalAnchor": 1,
+                    "HorizontalAnchor": 1
                 },
                 {
                     "Type": "UITextRenderer",
