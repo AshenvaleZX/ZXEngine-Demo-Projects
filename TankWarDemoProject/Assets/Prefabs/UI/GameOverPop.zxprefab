@@ -4,10 +4,12 @@
     "Components":
     [
         {
-            "Type": "Transform",
+            "Type": "RectTransform",
             "Position": [0, 0, 0],
             "Rotation": [0, 0, 0],
-            "Scale": [1, 1, 1]
+            "Scale": [1, 1, 1],
+            "VerticalAnchor": 1,
+            "HorizontalAnchor": 1
         },
         {
             "Type": "GameLogic",
@@ -22,10 +24,12 @@
             "Components":
             [
                 {
-                    "Type": "Transform",
+                    "Type": "RectTransform",
                     "Position": [0, 70, 0],
                     "Rotation": [0, 0, 0],
-                    "Scale": [1.5, 1.5, 1.5]
+                    "Scale": [1.5, 1.5, 1.5],
+                    "VerticalAnchor": 1,
+                    "HorizontalAnchor": 1
                 },
                 {
                     "Type": "UITextureRenderer",
@@ -40,10 +44,12 @@
                     "Components":
                     [
                         {
-                            "Type": "Transform",
+                            "Type": "RectTransform",
                             "Position": [0, 31, 0],
                             "Rotation": [0, 0, 0],
-                            "Scale": [1, 1, 1]
+                            "Scale": [1, 1, 1],
+                            "VerticalAnchor": 1,
+                            "HorizontalAnchor": 1
                         },
                         {
                             "Type": "UITextRenderer",
@@ -61,10 +67,12 @@
                     "Components":
                     [
                         {
-                            "Type": "Transform",
+                            "Type": "RectTransform",
                             "Position": [0, -5, 0],
                             "Rotation": [0, 0, 0],
-                            "Scale": [1, 1, 1]
+                            "Scale": [1, 1, 1],
+                            "VerticalAnchor": 1,
+                            "HorizontalAnchor": 1
                         },
                         {
                             "Type": "UITextRenderer",
@@ -82,10 +90,12 @@
                     "Components":
                     [
                         {
-                            "Type": "Transform",
+                            "Type": "RectTransform",
                             "Position": [-40, -37, 0],
                             "Rotation": [0, 0, 0],
-                            "Scale": [1.5, 1.5, 1.5]
+                            "Scale": [1.5, 1.5, 1.5],
+                            "VerticalAnchor": 1,
+                            "HorizontalAnchor": 1
                         },
                         {
                             "Type": "UITextureRenderer",
@@ -104,10 +114,12 @@
                     "Components":
                     [
                         {
-                            "Type": "Transform",
+                            "Type": "RectTransform",
                             "Position": [40, -37, 0],
                             "Rotation": [0, 0, 0],
-                            "Scale": [1.5, 1.5, 1.5]
+                            "Scale": [1.5, 1.5, 1.5],
+                            "VerticalAnchor": 1,
+                            "HorizontalAnchor": 1
                         },
                         {
                             "Type": "UITextureRenderer",
