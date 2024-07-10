@@ -8,6 +8,8 @@
             "Position": [0, 0, 0],
             "Rotation": [0, 0, 0],
             "Scale": [1, 1, 1],
+            "Width": 100,
+            "Height": 100,
             "VerticalAnchor": 1,
             "HorizontalAnchor": 1
         },
@@ -28,6 +30,8 @@
                     "Position": [0, 70, 0],
                     "Rotation": [0, 0, 0],
                     "Scale": [1.5, 1.5, 1.5],
+                    "Width": 100,
+                    "Height": 100,
                     "VerticalAnchor": 1,
                     "HorizontalAnchor": 1
                 },
@@ -48,6 +52,8 @@
                             "Position": [0, 15, 0],
                             "Rotation": [0, 0, 0],
                             "Scale": [1, 1, 1],
+                            "Width": 100,
+                            "Height": 100,
                             "VerticalAnchor": 1,
                             "HorizontalAnchor": 1
                         },
@@ -67,6 +73,8 @@
                             "Position": [0, 0, 0],
                             "Rotation": [0, 0, 0],
                             "Scale": [1, 1, 1],
+                            "Width": 100,
+                            "Height": 100,
                             "VerticalAnchor": 1,
                             "HorizontalAnchor": 1
                         }
@@ -83,6 +91,8 @@
                                     "Position": [0, 45, 0],
                                     "Rotation": [0, 0, 0],
                                     "Scale": [1, 1, 1],
+                                    "Width": 100,
+                                    "Height": 100,
                                     "VerticalAnchor": 1,
                                     "HorizontalAnchor": 1
                                 },
@@ -106,6 +116,8 @@
                                     "Position": [0, -14, 0],
                                     "Rotation": [0, 0, 0],
                                     "Scale": [1, 1, 1],
+                                    "Width": 100,
+                                    "Height": 100,
                                     "VerticalAnchor": 1,
                                     "HorizontalAnchor": 1
                                 },
@@ -131,6 +143,8 @@
                             "Position": [-48, -41, 0],
                             "Rotation": [0, 0, 0],
                             "Scale": [0.46, 0.46, 0.46],
+                            "Width": 100,
+                            "Height": 100,
                             "VerticalAnchor": 1,
                             "HorizontalAnchor": 1
                         },
@@ -156,6 +170,8 @@
                                     "Position": [0, 0, 0],
                                     "Rotation": [0, 0, 0],
                                     "Scale": [1, 1, 1],
+                                    "Width": 100,
+                                    "Height": 100,
                                     "VerticalAnchor": 1,
                                     "HorizontalAnchor": 1
                                 },
@@ -181,6 +197,8 @@
                             "Position": [48, -41, 0],
                             "Rotation": [0, 0, 0],
                             "Scale": [0.46, 0.46, 0.46],
+                            "Width": 100,
+                            "Height": 100,
                             "VerticalAnchor": 1,
                             "HorizontalAnchor": 1
                         },
@@ -206,6 +224,8 @@
                                     "Position": [0, 0, 0],
                                     "Rotation": [0, 0, 0],
                                     "Scale": [1, 1, 1],
+                                    "Width": 100,
+                                    "Height": 100,
                                     "VerticalAnchor": 1,
                                     "HorizontalAnchor": 1
                                 },
@@ -233,6 +253,8 @@
                     "Position": [0, -45, 0],
                     "Rotation": [0, 0, 0],
                     "Scale": [1, 1, 1],
+                    "Width": 100,
+                    "Height": 100,
                     "VerticalAnchor": 1,
                     "HorizontalAnchor": 1
                 },
