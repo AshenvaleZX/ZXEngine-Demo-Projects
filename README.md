@@ -47,8 +47,18 @@ xmake run zxengine path/to/project
 
 ## SLG Demo
 
+游戏操作方式：鼠标拖动和点击
+
+Game operation: mouse drag and click
+
 ![](Documents/SLGDemo.jpg)
 
+![](Documents/SLGDemo1.png)
+
 ## Tank War Demo
+
+游戏操作方式：按WASD移动，空格开火
+
+Game operation: press WASD to move, space to fire
 
 ![](Documents/TankWarDemo.jpg)
