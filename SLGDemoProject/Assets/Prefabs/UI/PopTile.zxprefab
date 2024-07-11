@@ -134,7 +134,7 @@
                     ]
                 },
                 {
-                    "Name": "BtnYellow",
+                    "Name": "BtnBlue",
                     "Layer": 1,
                     "Components":
                     [
@@ -232,6 +232,60 @@
                                 {
                                     "Type": "UITextRenderer",
                                     "Text": "Attack",
+                                    "HorizonAlignment": 1,
+                                    "VerticalAlignment": 1,
+                                    "Color": [1.0, 1.0, 1.0, 1],
+                                    "Size": 0.8
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Name": "BtnGreen",
+                    "Layer": 1,
+                    "Components":
+                    [
+                        {
+                            "Type": "RectTransform",
+                            "Position": [0, -41, 0],
+                            "Rotation": [0, 0, 0],
+                            "Scale": [0.46, 0.46, 0.46],
+                            "Width": 100,
+                            "Height": 100,
+                            "VerticalAnchor": 1,
+                            "HorizontalAnchor": 1
+                        },
+                        {
+                            "Type": "UITextureRenderer",
+                            "TexturePath": "Kenny/UIPack/green_button02.png"
+                        },
+                        {
+                            "Type": "UIButton",
+                            "Width": 190,
+                            "Height": 49
+                        }
+                    ],
+                    "GameObjects":
+                    [
+                        {
+                            "Name": "Text",
+                            "Layer": 1,
+                            "Components":
+                            [
+                                {
+                                    "Type": "RectTransform",
+                                    "Position": [0, 0, 0],
+                                    "Rotation": [0, 0, 0],
+                                    "Scale": [1, 1, 1],
+                                    "Width": 100,
+                                    "Height": 100,
+                                    "VerticalAnchor": 1,
+                                    "HorizontalAnchor": 1
+                                },
+                                {
+                                    "Type": "UITextRenderer",
+                                    "Text": "Gather",
                                     "HorizonAlignment": 1,
                                     "VerticalAlignment": 1,
                                     "Color": [1.0, 1.0, 1.0, 1],
