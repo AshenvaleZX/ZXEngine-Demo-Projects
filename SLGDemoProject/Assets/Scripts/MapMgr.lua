@@ -29,6 +29,8 @@ MapMgr.TileOriginScale = 9.5
 MapMgr.TileIconScale = 1
 MapMgr.TileIconOriginScale = 0.6
 
+MapMgr.TroopPrefabs = {}
+
 MapMgr.ResourceType = 
 {
     GlobalConst.TILE_RESOURCE_FARM_1,
@@ -145,6 +147,18 @@ MapMgr.TileTypeToIconPrefab =
     [GlobalConst.TILE_MONSTER_4]           = "Prefabs/KenneyHexagon/TileIconMonster.zxprefab",
 }
 
+MapMgr.TroopTypeToPrefab = 
+{
+    [GlobalConst.MARCH_TYPE_SOLO]          = "Prefabs/Troop.zxprefab",
+    [GlobalConst.MARCH_TYPE_SOLO_RETURN]   = "Prefabs/Troop.zxprefab",
+    [GlobalConst.MARCH_TYPE_RALLY]         = "Prefabs/TroopRally.zxprefab",
+    [GlobalConst.MARCH_TYPE_RALLY_RETURN]  = "Prefabs/TroopRally.zxprefab",
+    [GlobalConst.MARCH_TYPE_GATHER]        = "Prefabs/TroopGather.zxprefab",
+    [GlobalConst.MARCH_TYPE_GATHER_RETURN] = "Prefabs/TroopGather.zxprefab",
+    [GlobalConst.MARCH_TYPE_SCOUT]         = "Prefabs/TroopScout.zxprefab",
+    [GlobalConst.MARCH_TYPE_SCOUT_RETURN]  = "Prefabs/TroopScout.zxprefab",
+}
+
 function GetMapMgr()
     return MapMgr
 end
@@ -169,6 +183,10 @@ function MapMgr:Init()
         self.TileIconPrefabs[k] = Resources.LoadPrefab(v)
     end
 
+    for k, v in pairs(self.TroopTypeToPrefab) do
+        self.TroopPrefabs[k] = Resources.LoadPrefab(v)
+    end
+
     -- 初始化地图配置
     for i = 1, MapConfig.Size do
         for j = 1, MapConfig.Size do
@@ -181,6 +199,10 @@ function MapMgr:Init()
                     tileType = self.ResourceType[rnd]
                 elseif rnd <= 13 then
                     tileType = self.MonsterType[rnd - 9]
+                elseif rnd == 14 then
+                    if i >= self.ClearedRange.lx and i <= self.ClearedRange.rx and j >= self.ClearedRange.by and j <= self.ClearedRange.ty then
+                        tileType = GlobalConst.TILE_CITY_2
+                    end
                 end
 
                 if tileType then
@@ -195,34 +217,21 @@ function MapMgr:Init()
 end
 
 function MapMgr:AddTroop(startPos, endPos, type)
-    local troopLine = nil
-    
-    if type == GlobalConst.MARCH_TYPE_SOLO or type == GlobalConst.MARCH_TYPE_SOLO_RETURN then
-        troopLine = GameObject.Create("Prefabs/Troop.zxprefab")
-    elseif type == GlobalConst.MARCH_TYPE_RALLY or type == GlobalConst.MARCH_TYPE_RALLY_RETURN then
-        troopLine = GameObject.Create("Prefabs/TroopRally.zxprefab")
-    elseif type == GlobalConst.MARCH_TYPE_GATHER or type == GlobalConst.MARCH_TYPE_GATHER_RETURN then
-        troopLine = GameObject.Create("Prefabs/TroopGather.zxprefab")
-    elseif type == GlobalConst.MARCH_TYPE_SCOUT or type == GlobalConst.MARCH_TYPE_SCOUT_RETURN then
-        troopLine = GameObject.Create("Prefabs/TroopScout.zxprefab")
-    end
+    local troopLine = GameObject.CreateInstance(self.TroopPrefabs[type])
+    local time = troopLine:GetComponent("GameLogic"):GetScript():Init(startPos, endPos)
 
-    if troopLine then
-        local time = troopLine:GetComponent("GameLogic"):GetScript():Init(startPos, endPos)
-
-        if type == GlobalConst.MARCH_TYPE_SOLO then
-            Timer:AddOneTimeCallBack(function()
-                GetMapMgr():AddTroop(endPos, startPos, GlobalConst.MARCH_TYPE_SOLO_RETURN)
-            end, time)
-        elseif type == GlobalConst.MARCH_TYPE_RALLY then
-            Timer:AddOneTimeCallBack(function()
-                GetMapMgr():AddTroop(endPos, startPos, GlobalConst.MARCH_TYPE_RALLY_RETURN)
-            end, time)
-        elseif type == GlobalConst.MARCH_TYPE_SCOUT then
-            Timer:AddOneTimeCallBack(function()
-                GetMapMgr():AddTroop(endPos, startPos, GlobalConst.MARCH_TYPE_SCOUT_RETURN)
-            end, time)
-        end
+    if type == GlobalConst.MARCH_TYPE_SOLO then
+        Timer:AddOneTimeCallBack(function()
+            GetMapMgr():AddTroop(endPos, startPos, GlobalConst.MARCH_TYPE_SOLO_RETURN)
+        end, time)
+    elseif type == GlobalConst.MARCH_TYPE_RALLY then
+        Timer:AddOneTimeCallBack(function()
+            GetMapMgr():AddTroop(endPos, startPos, GlobalConst.MARCH_TYPE_RALLY_RETURN)
+        end, time)
+    elseif type == GlobalConst.MARCH_TYPE_SCOUT then
+        Timer:AddOneTimeCallBack(function()
+            GetMapMgr():AddTroop(endPos, startPos, GlobalConst.MARCH_TYPE_SCOUT_RETURN)
+        end, time)
     end
 end
 
