@@ -108,13 +108,13 @@ Fragment
             float yDense = 1 - clamp((wPos.y - bottom) / (top - bottom), 0.0, 1.0);
 
             float fadeDis = 50;
-            float fogLeftS = 5 * 10;
+            float fogLeftS = (5- 2) * 10;
             float fogLeftE = fogLeftS + fadeDis;
-            float fogRightS = 100 * 10;
+            float fogRightS = (100 - 2) * 10;
             float fogRightE = fogRightS + fadeDis;
-            float fogBottomS = 20 * 8.66;
+            float fogBottomS = (20 - 2) * 8.66;
             float fogBottomE = fogBottomS + fadeDis;
-            float fogTopS = 100 * 8.66;
+            float fogTopS = (100 - 2) * 8.66;
             float fogTopE = fogTopS + fadeDis;
 
             float xDense = 1;
