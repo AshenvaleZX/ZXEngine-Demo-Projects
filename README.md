@@ -53,7 +53,7 @@ Game operation: mouse drag and click
 
 ![](Documents/SLGDemo.jpg)
 
-![](Documents/SLGDemo1.png)
+![](Documents/SLGDemo1.jpg)
 
 ## Tank War Demo
 
