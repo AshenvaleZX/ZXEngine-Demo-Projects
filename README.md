@@ -33,7 +33,7 @@ The second way is to use the command line and add the project path to be opened 
 path/to/ZXEngine.exe  path/to/project
 ```
 
-**MacOS**
+**macOS & Linux**
 
 ```sh
 path/to/ZXEngine  path/to/project
