@@ -4,6 +4,10 @@ CameraMap.ClickX = 0
 CameraMap.ClickY = 0
 CameraMap.TileClickBlock = false
 
+CameraMap.LastTouchDis = 0
+CameraMap.IsFirstTouchZoom = true
+CameraMap.TouchZoomSpeedRatio = 0.1
+
 CameraMap.HeightMin = 20
 CameraMap.HeightZoomIn = 80
 CameraMap.HeightZoomOut = 100
@@ -48,9 +52,9 @@ function CameraMap:Start()
     self.ZYRatio = 1 / math.tan(50 * math.pi / 180)
     self.trans = self.gameObject:GetComponent("Transform")
     self.camera = self.gameObject:GetComponent("Camera")
-    EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_DOWN, self.OnMouseLeftPress, self)
-    EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_UP, self.OnMouseLeftRelease, self)
-    EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_PRESS, self.OnMouseMove, self)
+    EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_DOWN, self.OnMouseLeftPressWrap, self)
+    EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_UP, self.OnMouseLeftReleaseWrap, self)
+    EngineEvent:AddEventHandler(EngineEventType.MOUSE_BUTTON_1_PRESS, self.OnMouseMoveWrap, self)
     EngineEvent:AddEventHandler(EngineEventType.UPDATE_MOUSE_SCROLL, self.OnMouseScroll, self)
 
     self.FogPlane = GameObject.Create("Prefabs/FogPlane.zxprefab")
@@ -67,26 +71,62 @@ end
 function CameraMap:Update()
     local dt = Time.GetDeltaTime()
     self:CheckAutoMove(dt)
+    self:UpdateTouch()
 end
 
-function CameraMap:OnMouseLeftPress(args)
+-- 触控操作
+function CameraMap:UpdateTouch()
+    local touchCount = InputManager.GetTouchCount()
+    if touchCount == 1 then
+        local touch = InputManager.GetTouch(0)
+        if touch.phase == TouchPhase.Began then
+            self:OnMouseLeftPress(touch.x, touch.y)
+        elseif touch.phase == TouchPhase.Moved then
+            self:OnMouseMove(touch.x, touch.y)
+        elseif touch.phase == TouchPhase.Ended then
+            self:OnMouseLeftRelease(touch.x, touch.y)
+        end
+        self.IsFirstTouchZoom = true
+    elseif touchCount == 2 then
+        local touch1 = InputManager.GetTouch(0)
+        local touch2 = InputManager.GetTouch(1)
+        if self.IsFirstTouchZoom then
+            self.LastTouchDis = math.sqrt((touch1.x - touch2.x) * (touch1.x - touch2.x) + (touch1.y - touch2.y) * (touch1.y - touch2.y))
+            self.IsFirstTouchZoom = false
+        else
+            local touchDis = math.sqrt((touch1.x - touch2.x) * (touch1.x - touch2.x) + (touch1.y - touch2.y) * (touch1.y - touch2.y))
+            local delta = touchDis - self.LastTouchDis
+            self:OnMouseScroll(delta * self.TouchZoomSpeedRatio)
+            self.LastTouchDis = touchDis
+        end
+    else
+        self.IsFirstTouchZoom = true
+    end
+end
+
+function CameraMap:OnMouseLeftPressWrap(args)
     local argList = Utils.StringSplit(args, '|')
-    self.ClickX = tonumber(argList[1])
-    self.ClickY = tonumber(argList[2])
+    self:OnMouseLeftPress(tonumber(argList[1]), tonumber(argList[2]))
+end
+
+function CameraMap:OnMouseLeftPress(xPos, yPos)
+    self.ClickX = xPos
+    self.ClickY = yPos
 
     self.firstMouse = true
 end
 
-function CameraMap:OnMouseLeftRelease(args)
+function CameraMap:OnMouseLeftReleaseWrap(args)
+    local argList = Utils.StringSplit(args, '|')
+    self:OnMouseLeftRelease(tonumber(argList[1]), tonumber(argList[2]))
+end
+
+function CameraMap:OnMouseLeftRelease(xPos, yPos)
     -- 点击UI
     if self.TileClickBlock then
         self.TileClickBlock = false
         return
     end
-
-    local argList = Utils.StringSplit(args, '|')
-    local xPos = tonumber(argList[1])
-    local yPos = tonumber(argList[2])
 
     if math.abs(xPos - self.ClickX) < 5 and math.abs(yPos - self.ClickY) < 5 then
         -- 已经选中地块的情况下，点任意位置取消选中
@@ -138,11 +178,12 @@ function CameraMap:OnMouseLeftRelease(args)
     self.isDragging = false
 end
 
-function CameraMap:OnMouseMove(args)
+function CameraMap:OnMouseMoveWrap(args)
     local argList = Utils.StringSplit(args, '|')
-    local xPos = tonumber(argList[1])
-    local yPos = tonumber(argList[2])
+    self:OnMouseMove(tonumber(argList[1]), tonumber(argList[2]))
+end
 
+function CameraMap:OnMouseMove(xPos, yPos)
     if not self.isDragging then
         if math.abs(xPos - self.ClickX) < 5 and math.abs(yPos - self.ClickY) < 5 then
             return
