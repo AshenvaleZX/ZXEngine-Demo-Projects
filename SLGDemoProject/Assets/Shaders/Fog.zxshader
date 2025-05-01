@@ -73,15 +73,20 @@ Fragment
     {
         void main()
         {
-#if ZX_API_OPENGL
+#ifdef ZX_API_OPENGL
             float depth = texture(ENGINE_Depth_Map, ScreenCoords).r;
             float ndcZ = depth * 2.0 - 1.0;
 #endif
-#if ZX_API_VULKAN
+#ifdef ZX_API_VULKAN
             float depth = texture(ENGINE_Depth_Map, ScreenCoords).r;
             float ndcZ = depth;
 #endif
-#if ZX_API_D3D12
+#ifdef ZX_API_D3D12
+            vec2 screenCoord = vec2(ScreenCoords.x, -ScreenCoords.y);
+            float depth = texture(ENGINE_Depth_Map, screenCoord).r;
+            float ndcZ = depth;
+#endif
+#ifdef ZX_API_METAL
             vec2 screenCoord = vec2(ScreenCoords.x, -ScreenCoords.y);
             float depth = texture(ENGINE_Depth_Map, screenCoord).r;
             float ndcZ = depth;
