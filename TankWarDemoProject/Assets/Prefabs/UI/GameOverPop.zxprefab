@@ -113,8 +113,8 @@
                         },
                         {
                             "Type": "UIButton",
-                            "Width": 34,
-                            "Height": 36
+                            "mWidth": 34,
+                            "mHeight": 36
                         }
                     ]
                 },
@@ -139,8 +139,8 @@
                         },
                         {
                             "Type": "UIButton",
-                            "Width": 34,
-                            "Height": 36
+                            "mWidth": 34,
+                            "mHeight": 36
                         }
                     ]
                 }

@@ -154,8 +154,8 @@
                         },
                         {
                             "Type": "UIButton",
-                            "Width": 190,
-                            "Height": 49
+                            "mWidth": 190,
+                            "mHeight": 49
                         }
                     ],
                     "GameObjects":
@@ -208,8 +208,8 @@
                         },
                         {
                             "Type": "UIButton",
-                            "Width": 190,
-                            "Height": 49
+                            "mWidth": 190,
+                            "mHeight": 49
                         }
                     ],
                     "GameObjects":
@@ -262,8 +262,8 @@
                         },
                         {
                             "Type": "UIButton",
-                            "Width": 190,
-                            "Height": 49
+                            "mWidth": 190,
+                            "mHeight": 49
                         }
                     ],
                     "GameObjects":
